@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Review Helper - MVP Dashboard</title>
+    <meta
+      name="description"
+      content="A lightweight MVP dashboard for tracking Google review requests, follow-ups, review progress, templates, and competitor gaps."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Local Review Helper</p>
+        <h1>Review Collection Dashboard</h1>
+      </div>
+      <div class="header-actions">
+        <button class="button secondary" type="button" id="exportCsv">Export CSV</button>
+        <button class="button ghost" type="button" id="resetDemo">Reset demo</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="business-panel">
+        <div>
+          <p class="eyebrow">Demo business</p>
+          <h2>AlsterGlanz Reinigung</h2>
+          <p class="muted">Hamburg-Eimsbuttel · Cleaning company · Google rating 4.7</p>
+        </div>
+        <div class="review-link-box">
+          <span>Direct Google review link</span>
+          <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" rel="noreferrer">
+            https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review
+          </a>
+        </div>
+      </section>
+
+      <section class="kpi-grid" aria-label="Review system metrics">
+        <article class="kpi-card">
+          <span>Total requests</span>
+          <strong id="totalRequests">0</strong>
+          <small>Customers asked</small>
+        </article>
+        <article class="kpi-card">
+          <span>Reviews received</span>
+          <strong id="reviewsReceived">0</strong>
+          <small>Confirmed new reviews</small>
+        </article>
+        <article class="kpi-card">
+          <span>Conversion rate</span>
+          <strong id="conversionRate">0%</strong>
+          <small>Requests to reviews</small>
+        </article>
+        <article class="kpi-card">
+          <span>Follow-ups due</span>
+          <strong id="followUpsDue">0</strong>
+          <small>Needs attention</small>
+        </article>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel tracker-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Tracker</p>
+              <h2>Review request pipeline</h2>
+            </div>
+            <label class="filter-label">
+              Status
+              <select id="statusFilter">
+                <option value="all">All</option>
+                <option value="reviewed">Review received</option>
+                <option value="follow-up">Follow-up needed</option>
+                <option value="waiting">Waiting</option>
+                <option value="not-satisfied">Not satisfied</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Service</th>
+                  <th>Channel</th>
+                  <th>Status</th>
+                  <th>Next action</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="requestTable"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <aside class="panel form-panel">
+          <p class="eyebrow">Add request</p>
+          <h2>Log a customer</h2>
+          <form id="requestForm">
+            <label>
+              Customer name
+              <input type="text" name="customerName" placeholder="e.g. Frau Meyer" required />
+            </label>
+            <label>
+              Service type
+              <input type="text" name="serviceType" placeholder="e.g. Window cleaning" required />
+            </label>
+            <label>
+              Request channel
+              <select name="channel">
+                <option>WhatsApp</option>
+                <option>Email</option>
+                <option>QR card</option>
+                <option>Phone</option>
+              </select>
+            </label>
+            <div class="check-row">
+              <label><input type="checkbox" name="satisfied" checked /> Customer satisfied</label>
+              <label><input type="checkbox" name="reviewReceived" /> Review received</label>
+            </div>
+            <label>
+              Notes
+              <textarea name="notes" rows="3" placeholder="Anything the team should remember"></textarea>
+            </label>
+            <button class="button primary" type="submit">Add to tracker</button>
+          </form>
+        </aside>
+      </section>
+
+      <section class="dashboard-grid secondary-grid">
+        <article class="panel">
+          <p class="eyebrow">Competitor gap</p>
+          <h2>Why this matters</h2>
+          <div class="gap-list">
+            <div><span>AlsterGlanz Reinigung</span><strong>27 reviews</strong></div>
+            <div><span>Hamburg CleanPro</span><strong>146 reviews</strong></div>
+            <div><span>Nordlicht Reinigung</span><strong>213 reviews</strong></div>
+            <div><span>Elbe Sauber Service</span><strong>89 reviews</strong></div>
+          </div>
+          <p class="insight">
+            The strongest nearby competitor has 186 more Google reviews. The system gives the team a
+            repeatable way to close the gap over time by asking real satisfied customers.
+          </p>
+        </article>
+
+        <article class="panel qr-panel">
+          <p class="eyebrow">QR card preview</p>
+          <h2>Ready for handover</h2>
+          <img
+            src="assets/qr-review-card-preview.png"
+            alt="Preview of the printable QR review card"
+            class="qr-card-preview"
+          />
+          <a class="button secondary" href="../output/pdf/qr-review-card.pdf" target="_blank" rel="noreferrer">
+            Open QR card
+          </a>
+        </article>
+
+        <article class="panel templates-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Templates</p>
+              <h2>Ready messages</h2>
+            </div>
+            <button class="button ghost" type="button" id="copyTemplate">Copy WhatsApp</button>
+          </div>
+          <div class="template-tabs" role="tablist" aria-label="Message templates">
+            <button class="template-tab active" type="button" data-template="whatsapp">WhatsApp</button>
+            <button class="template-tab" type="button" data-template="email">Email</button>
+            <button class="template-tab" type="button" data-template="followup">Follow-up</button>
+          </div>
+          <pre id="templateText"></pre>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <span>Local Review Helper MVP</span>
+      <span>Browser-only demo · Data stays on this device</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
