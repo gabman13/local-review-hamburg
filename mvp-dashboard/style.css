@@ -370,26 +370,26 @@ td {
 
 .file-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
 }
 
 .file-card {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 14px;
+  gap: 10px;
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  padding: 14px;
+  padding: 11px;
 }
 
 .file-preview {
   display: grid;
   place-items: center;
-  min-height: 170px;
+  min-height: 96px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -399,7 +399,7 @@ td {
 .file-preview img {
   display: block;
   width: 100%;
-  height: 180px;
+  height: 104px;
   object-fit: cover;
   object-position: top;
 }
@@ -407,7 +407,7 @@ td {
 .file-icon {
   display: grid;
   place-items: center;
-  width: 72px;
+  width: 50px;
   aspect-ratio: 0.78;
   border: 2px solid var(--accent-dark);
   border-radius: 6px;
@@ -419,14 +419,14 @@ td {
 
 .file-card h3 {
   margin: 0 0 5px;
-  font-size: 1.02rem;
+  font-size: 0.95rem;
   line-height: 1.25;
 }
 
 .file-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
 }
 
 .file-card .button {
@@ -441,17 +441,17 @@ code {
 .template-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 14px;
+  gap: 10px;
+  margin-top: 12px;
 }
 
 .template-card {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  padding: 13px;
+  padding: 11px;
 }
 
 .template-card-header {
@@ -463,7 +463,7 @@ code {
 
 .template-card h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.94rem;
   line-height: 1.25;
 }
 
@@ -473,16 +473,16 @@ code {
 }
 
 .template-card pre {
-  max-height: 190px;
-  min-height: 130px;
+  max-height: 112px;
+  min-height: 84px;
   overflow: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #fffdf9;
   color: var(--text);
   margin: 0;
-  padding: 12px;
-  font-size: 0.85rem;
+  padding: 10px;
+  font-size: 0.8rem;
   white-space: pre-wrap;
 }
 
@@ -490,6 +490,30 @@ code {
   min-height: 34px;
   white-space: nowrap;
   padding: 7px 9px;
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.category-button {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 850;
+  padding: 7px 10px;
+}
+
+.category-button.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
 }
 
 footer {

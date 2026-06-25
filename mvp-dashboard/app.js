@@ -161,6 +161,11 @@ const translations = {
       ready: { label: "Ready to ask", action: "Send request" },
     },
     files: {
+      categories: {
+        core: "Core files",
+        support: "Support files",
+        all: "All files",
+      },
       audit: {
         title: "Google Review Audit PDF",
         description: "Review gap, competitor comparison, and recommended 30-day system.",
@@ -183,6 +188,12 @@ const translations = {
       },
     },
     templates: {
+      categories: {
+        whatsapp: "WhatsApp",
+        email: "Email",
+        other: "Other",
+        all: "All",
+      },
       whatsappShort: {
         title: "WhatsApp short message",
         channel: "WhatsApp",
@@ -329,6 +340,11 @@ const translations = {
       ready: { label: "Bereit zum Fragen", action: "Anfrage senden" },
     },
     files: {
+      categories: {
+        core: "Basis-Dateien",
+        support: "Zusatz-Dateien",
+        all: "Alle Dateien",
+      },
       audit: {
         title: "Google-Bewertungs-Audit",
         description: "Bewertungslücke, Wettbewerbervergleich und empfohlener 30-Tage-Ablauf.",
@@ -351,6 +367,12 @@ const translations = {
       },
     },
     templates: {
+      categories: {
+        whatsapp: "WhatsApp",
+        email: "E-Mail",
+        other: "Weitere",
+        all: "Alle",
+      },
       whatsappShort: {
         title: "WhatsApp Kurztext",
         channel: "WhatsApp",
@@ -406,30 +428,35 @@ const translations = {
 const fileAssets = [
   {
     id: "audit",
+    category: "core",
     fileName: "sample-review-gap-audit.pdf",
     path: "../output/pdf/sample-review-gap-audit.pdf",
     preview: "assets/google-review-audit-preview.png",
   },
   {
     id: "card",
+    category: "core",
     fileName: "qr-review-card.pdf",
     path: "../output/pdf/qr-review-card.pdf",
     preview: "assets/qr-review-card-preview.png",
   },
   {
     id: "staff",
+    category: "core",
     fileName: "staff-instruction-sheet.pdf",
     path: "../output/pdf/staff-instruction-sheet.pdf",
     preview: "assets/staff-instruction-sheet-preview.png",
   },
   {
     id: "report",
+    category: "support",
     fileName: "monthly-review-report.pdf",
     path: "../output/pdf/monthly-review-report.pdf",
     preview: "assets/monthly-review-report-preview.png",
   },
   {
     id: "responses",
+    category: "support",
     fileName: "review-response-templates.pdf",
     path: "../output/pdf/review-response-templates.pdf",
     preview: "assets/review-response-templates-preview.png",
@@ -446,6 +473,20 @@ const templateOrder = [
   "smsShort",
   "staffInstruction",
 ];
+
+const templateCategories = {
+  whatsappShort: "whatsapp",
+  whatsappFriendly: "whatsapp",
+  whatsappFollowup: "whatsapp",
+  emailShort: "email",
+  emailProfessional: "email",
+  emailFollowup: "email",
+  smsShort: "other",
+  staffInstruction: "other",
+};
+
+const fileCategoryOrder = ["core", "support", "all"];
+const templateCategoryOrder = ["whatsapp", "email", "other", "all"];
 
 const channelOptions = ["whatsapp", "email", "qr", "phone"];
 const statusOptions = ["ready", "follow-up", "waiting", "reviewed", "not-satisfied"];
@@ -469,9 +510,11 @@ const elements = {
   resetDemo: document.querySelector("#resetDemo"),
   exportCsv: document.querySelector("#exportCsv"),
   generatedFiles: document.querySelector("#generatedFiles"),
+  fileCategoryButtons: document.querySelector("#fileCategoryButtons"),
   downloadAll: document.querySelector("#downloadAll"),
   downloadStatus: document.querySelector("#downloadStatus"),
   templateGrid: document.querySelector("#templateGrid"),
+  templateCategoryButtons: document.querySelector("#templateCategoryButtons"),
   channelSelect: document.querySelector("#channelSelect"),
   statusSelect: document.querySelector("#statusSelect"),
   actionSelect: document.querySelector("#actionSelect"),
@@ -480,6 +523,8 @@ const elements = {
 
 let requests = loadRequests();
 let language = localStorage.getItem(LANGUAGE_KEY) || "en";
+let activeFileCategory = "core";
+let activeTemplateCategory = "whatsapp";
 
 function t(key) {
   return key.split(".").reduce((value, part) => (value ? value[part] : undefined), translations[language]) || key;
@@ -659,7 +704,19 @@ function renderTable() {
 }
 
 function renderGeneratedFiles() {
-  elements.generatedFiles.innerHTML = fileAssets
+  elements.fileCategoryButtons.innerHTML = fileCategoryOrder
+    .map(
+      (category) => `
+        <button class="category-button ${category === activeFileCategory ? "active" : ""}" type="button" data-file-category="${category}">
+          ${t(`files.categories.${category}`)}
+        </button>
+      `
+    )
+    .join("");
+
+  const visibleFiles = fileAssets.filter((file) => activeFileCategory === "all" || file.category === activeFileCategory);
+
+  elements.generatedFiles.innerHTML = visibleFiles
     .map((file) => {
       const copy = t(`files.${file.id}`);
 
@@ -681,7 +738,21 @@ function renderGeneratedFiles() {
 }
 
 function renderTemplates() {
-  elements.templateGrid.innerHTML = templateOrder
+  elements.templateCategoryButtons.innerHTML = templateCategoryOrder
+    .map(
+      (category) => `
+        <button class="category-button ${category === activeTemplateCategory ? "active" : ""}" type="button" data-template-category="${category}">
+          ${t(`templates.categories.${category}`)}
+        </button>
+      `
+    )
+    .join("");
+
+  const visibleTemplates = templateOrder.filter(
+    (id) => activeTemplateCategory === "all" || templateCategories[id] === activeTemplateCategory
+  );
+
+  elements.templateGrid.innerHTML = visibleTemplates
     .map((id) => {
       const template = t(`templates.${id}`);
 
@@ -891,6 +962,22 @@ elements.resetDemo.addEventListener("click", () => {
 elements.exportCsv.addEventListener("click", exportCsv);
 elements.downloadAll.addEventListener("click", downloadAllFiles);
 elements.languageToggle.addEventListener("click", toggleLanguage);
+elements.fileCategoryButtons.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-file-category]");
+
+  if (button) {
+    activeFileCategory = button.dataset.fileCategory;
+    renderGeneratedFiles();
+  }
+});
+elements.templateCategoryButtons.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-template-category]");
+
+  if (button) {
+    activeTemplateCategory = button.dataset.templateCategory;
+    renderTemplates();
+  }
+});
 elements.statusSelect.addEventListener("change", () => {
   const statusKey = elements.statusSelect.value;
   elements.actionSelect.value = defaultActionByStatus[statusKey] || "send";
