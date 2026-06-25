@@ -1,0 +1,5 @@
+Customer Name,Service Date,Service Type,Satisfied?,Request Channel,Request Sent,Follow-Up Sent,Review Received,Review Date,Notes
+Maria S.,2026-06-03,Apartment cleaning,Yes,WhatsApp,Yes,No,Yes,2026-06-04,Positive review received
+Herr Weber,2026-06-07,Office cleaning,Yes,Email,Yes,Yes,No,,Follow up sent after 3 days
+Cafe Morgen,2026-06-11,Window cleaning,Yes,QR card,Yes,No,No,,Staff handed card after job
+Frau Klein,2026-06-14,Move-out cleaning,No,None,No,No,No,,Do not request review until issue resolved

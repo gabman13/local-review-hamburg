@@ -117,6 +117,10 @@ footer {
   box-shadow: 0 10px 24px rgba(184, 107, 66, 0.2);
 }
 
+.button.primary.compact-primary {
+  width: auto;
+}
+
 .button.secondary {
   border-color: var(--line);
   background: var(--surface);
@@ -198,8 +202,8 @@ footer {
   margin-bottom: 18px;
 }
 
-.secondary-grid {
-  grid-template-columns: 1fr 0.75fr 1.15fr;
+.lower-grid {
+  grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.55fr);
 }
 
 .panel {
@@ -340,18 +344,93 @@ td {
   margin-bottom: 0;
 }
 
-.qr-panel {
-  display: grid;
-  align-content: start;
-  gap: 12px;
+.files-panel {
+  margin-bottom: 18px;
 }
 
-.qr-card-preview {
-  width: min(100%, 230px);
-  justify-self: center;
+.files-heading {
+  align-items: flex-start;
+}
+
+.download-actions {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  min-width: 210px;
+}
+
+.download-status {
+  min-height: 18px;
+  margin: 0;
+  color: var(--good);
+  font-size: 0.86rem;
+  font-weight: 750;
+  text-align: right;
+}
+
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.file-card {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 14px;
+  min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: 0 14px 32px rgba(59, 42, 27, 0.1);
+  background: var(--surface);
+  padding: 14px;
+}
+
+.file-preview {
+  display: grid;
+  place-items: center;
+  min-height: 170px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-warm);
+}
+
+.file-preview img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.file-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  aspect-ratio: 0.78;
+  border: 2px solid var(--accent-dark);
+  border-radius: 6px;
+  background: #fffdf9;
+  color: var(--accent-dark);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.file-card h3 {
+  margin: 0 0 5px;
+  font-size: 1.02rem;
+  line-height: 1.25;
+}
+
+.file-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.file-card .button {
+  width: 100%;
 }
 
 code {
@@ -359,38 +438,58 @@ code {
   font-size: 0.86em;
 }
 
-.template-tabs {
-  display: flex;
-  gap: 6px;
-  margin: 12px 0;
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
 }
 
-.template-tab {
+.template-card {
+  display: grid;
+  gap: 10px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  color: var(--muted);
-  cursor: pointer;
-  font-weight: 800;
-  padding: 8px 10px;
+  padding: 13px;
 }
 
-.template-tab.active {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: #fff;
+.template-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-pre {
-  min-height: 210px;
+.template-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.template-card small {
+  display: block;
+  margin-top: 4px;
+}
+
+.template-card pre {
+  max-height: 190px;
+  min-height: 130px;
   overflow: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #fffdf9;
   color: var(--text);
   margin: 0;
-  padding: 14px;
+  padding: 12px;
+  font-size: 0.85rem;
   white-space: pre-wrap;
+}
+
+.copy-template {
+  min-height: 34px;
+  white-space: nowrap;
+  padding: 7px 9px;
 }
 
 footer {
@@ -400,12 +499,37 @@ footer {
   padding: 24px 0 34px;
 }
 
+.language-toggle {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--accent-dark);
+  cursor: pointer;
+  font-weight: 850;
+  padding: 8px 12px;
+}
+
 @media (max-width: 980px) {
   .kpi-grid,
   .dashboard-grid,
-  .secondary-grid,
+  .lower-grid,
   .business-panel {
     grid-template-columns: 1fr;
+  }
+
+  .file-grid,
+  .template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .download-actions {
+    justify-items: stretch;
+    min-width: 0;
+  }
+
+  .download-status {
+    text-align: left;
   }
 }
 
@@ -420,8 +544,9 @@ footer {
 
   .header-actions .button,
   .filter-label,
-  .template-tabs,
-  .button.secondary {
+  .button.secondary,
+  .language-toggle,
+  .button.primary.compact-primary {
     width: 100%;
   }
 

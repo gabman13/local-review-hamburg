@@ -6,7 +6,7 @@
     <title>Local Review Helper - MVP Dashboard</title>
     <meta
       name="description"
-      content="A lightweight MVP dashboard for tracking Google review requests, follow-ups, review progress, templates, and competitor gaps."
+      content="A lightweight MVP dashboard for tracking Google review requests, follow-ups, review progress, templates, and generated review system files."
     />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -14,49 +14,49 @@
     <header class="app-header">
       <div>
         <p class="eyebrow">Local Review Helper</p>
-        <h1>Review Collection Dashboard</h1>
+        <h1 data-i18n="appTitle">Review Collection Dashboard</h1>
       </div>
       <div class="header-actions">
-        <button class="button secondary" type="button" id="exportCsv">Export CSV</button>
-        <button class="button ghost" type="button" id="resetDemo">Reset demo</button>
+        <button class="button secondary" type="button" id="exportCsv" data-i18n="exportCsv">Export CSV</button>
+        <button class="button ghost" type="button" id="resetDemo" data-i18n="resetDemo">Reset demo</button>
       </div>
     </header>
 
     <main>
       <section class="business-panel">
         <div>
-          <p class="eyebrow">Demo business</p>
+          <p class="eyebrow" data-i18n="demoBusiness">Demo business</p>
           <h2>AlsterGlanz Reinigung</h2>
-          <p class="muted">Hamburg-Eimsbuttel · Cleaning company · Google rating 4.7</p>
+          <p class="muted" data-i18n="businessMeta">Hamburg-Eimsbuttel · Cleaning company · Google rating 4.7</p>
         </div>
         <div class="review-link-box">
-          <span>Direct Google review link</span>
+          <span data-i18n="directReviewLink">Direct Google review link</span>
           <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" rel="noreferrer">
             https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review
           </a>
         </div>
       </section>
 
-      <section class="kpi-grid" aria-label="Review system metrics">
+      <section class="kpi-grid" aria-label="Review system metrics" data-i18n-attr="aria-label:metricsAria">
         <article class="kpi-card">
-          <span>Total requests</span>
+          <span data-i18n="totalRequests">Total requests</span>
           <strong id="totalRequests">0</strong>
-          <small>Customers asked</small>
+          <small data-i18n="customersAsked">Customers asked</small>
         </article>
         <article class="kpi-card">
-          <span>Reviews received</span>
+          <span data-i18n="reviewsReceived">Reviews received</span>
           <strong id="reviewsReceived">0</strong>
-          <small>Confirmed new reviews</small>
+          <small data-i18n="confirmedReviews">Confirmed new reviews</small>
         </article>
         <article class="kpi-card">
-          <span>Conversion rate</span>
+          <span data-i18n="conversionRate">Conversion rate</span>
           <strong id="conversionRate">0%</strong>
-          <small>Requests to reviews</small>
+          <small data-i18n="requestsToReviews">Requests to reviews</small>
         </article>
         <article class="kpi-card">
-          <span>Follow-ups due</span>
+          <span data-i18n="followUpsDue">Follow-ups due</span>
           <strong id="followUpsDue">0</strong>
-          <small>Needs attention</small>
+          <small data-i18n="needsAttention">Needs attention</small>
         </article>
       </section>
 
@@ -64,17 +64,17 @@
         <article class="panel tracker-panel">
           <div class="panel-heading">
             <div>
-              <p class="eyebrow">Tracker</p>
-              <h2>Review request pipeline</h2>
+              <p class="eyebrow" data-i18n="tracker">Tracker</p>
+              <h2 data-i18n="pipelineTitle">Review request pipeline</h2>
             </div>
             <label class="filter-label">
-              Status
+              <span data-i18n="statusLabel">Status</span>
               <select id="statusFilter">
-                <option value="all">All</option>
-                <option value="reviewed">Review received</option>
-                <option value="follow-up">Follow-up needed</option>
-                <option value="waiting">Waiting</option>
-                <option value="not-satisfied">Not satisfied</option>
+                <option value="all" data-i18n="filterAll">All</option>
+                <option value="reviewed" data-i18n="filterReviewed">Review received</option>
+                <option value="follow-up" data-i18n="filterFollowUp">Follow-up needed</option>
+                <option value="waiting" data-i18n="filterWaiting">Waiting</option>
+                <option value="not-satisfied" data-i18n="filterNotSatisfied">Not satisfied</option>
               </select>
             </label>
           </div>
@@ -83,11 +83,11 @@
             <table>
               <thead>
                 <tr>
-                  <th>Customer</th>
-                  <th>Service</th>
-                  <th>Channel</th>
-                  <th>Status</th>
-                  <th>Next action</th>
+                  <th data-i18n="tableCustomer">Customer</th>
+                  <th data-i18n="tableService">Service</th>
+                  <th data-i18n="tableChannel">Channel</th>
+                  <th data-i18n="tableStatus">Status</th>
+                  <th data-i18n="tableNextAction">Next action</th>
                   <th></th>
                 </tr>
               </thead>
@@ -97,89 +97,113 @@
         </article>
 
         <aside class="panel form-panel">
-          <p class="eyebrow">Add request</p>
-          <h2>Log a customer</h2>
+          <p class="eyebrow" data-i18n="addRequest">Add request</p>
+          <h2 data-i18n="logCustomer">Log a customer</h2>
           <form id="requestForm">
             <label>
-              Customer name
-              <input type="text" name="customerName" placeholder="e.g. Frau Meyer" required />
+              <span data-i18n="customerName">Customer name</span>
+              <input
+                type="text"
+                name="customerName"
+                placeholder="e.g. Frau Meyer"
+                data-i18n-attr="placeholder:customerPlaceholder"
+                required
+              />
             </label>
             <label>
-              Service type
-              <input type="text" name="serviceType" placeholder="e.g. Window cleaning" required />
+              <span data-i18n="serviceType">Service type</span>
+              <input
+                type="text"
+                name="serviceType"
+                placeholder="e.g. Window cleaning"
+                data-i18n-attr="placeholder:servicePlaceholder"
+                required
+              />
             </label>
             <label>
-              Request channel
-              <select name="channel">
-                <option>WhatsApp</option>
-                <option>Email</option>
-                <option>QR card</option>
-                <option>Phone</option>
-              </select>
+              <span data-i18n="requestChannel">Request channel</span>
+              <select name="channel" id="channelSelect"></select>
+            </label>
+            <label>
+              <span data-i18n="initialStatus">Initial status</span>
+              <select name="statusKey" id="statusSelect"></select>
+            </label>
+            <label>
+              <span data-i18n="nextAction">Next action</span>
+              <select name="actionKey" id="actionSelect"></select>
             </label>
             <div class="check-row">
-              <label><input type="checkbox" name="satisfied" checked /> Customer satisfied</label>
-              <label><input type="checkbox" name="reviewReceived" /> Review received</label>
+              <label><input type="checkbox" name="satisfied" checked /> <span data-i18n="customerSatisfied">Customer satisfied</span></label>
+              <label><input type="checkbox" name="reviewReceived" /> <span data-i18n="reviewReceivedCheck">Review received</span></label>
             </div>
             <label>
-              Notes
-              <textarea name="notes" rows="3" placeholder="Anything the team should remember"></textarea>
+              <span data-i18n="notes">Notes</span>
+              <textarea
+                name="notes"
+                rows="3"
+                placeholder="Anything the team should remember"
+                data-i18n-attr="placeholder:notesPlaceholder"
+              ></textarea>
             </label>
-            <button class="button primary" type="submit">Add to tracker</button>
+            <button class="button primary" type="submit" data-i18n="addToTracker">Add to tracker</button>
           </form>
         </aside>
       </section>
 
-      <section class="dashboard-grid secondary-grid">
-        <article class="panel">
-          <p class="eyebrow">Competitor gap</p>
-          <h2>Why this matters</h2>
-          <div class="gap-list">
-            <div><span>AlsterGlanz Reinigung</span><strong>27 reviews</strong></div>
-            <div><span>Hamburg CleanPro</span><strong>146 reviews</strong></div>
-            <div><span>Nordlicht Reinigung</span><strong>213 reviews</strong></div>
-            <div><span>Elbe Sauber Service</span><strong>89 reviews</strong></div>
+      <section class="panel files-panel">
+        <div class="panel-heading files-heading">
+          <div>
+            <p class="eyebrow" data-i18n="generatedFilesEyebrow">Generated files</p>
+            <h2 data-i18n="generatedFilesTitle">Generated files</h2>
+            <p class="muted" data-i18n="generatedFilesText">
+              Three client-ready PDFs are available for the review collection system.
+            </p>
           </div>
-          <p class="insight">
+          <div class="download-actions">
+            <button class="button primary compact-primary" type="button" id="downloadAll" data-i18n="downloadAll">
+              Download all PDFs
+            </button>
+            <p id="downloadStatus" class="download-status" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="file-grid" id="generatedFiles"></div>
+      </section>
+
+      <section class="dashboard-grid lower-grid">
+        <article class="panel">
+          <p class="eyebrow" data-i18n="competitorGap">Competitor gap</p>
+          <h2 data-i18n="whyMatters">Why this matters</h2>
+          <div class="gap-list">
+            <div><span>AlsterGlanz Reinigung</span><strong data-count="27">27 reviews</strong></div>
+            <div><span>Hamburg CleanPro</span><strong data-count="146">146 reviews</strong></div>
+            <div><span>Nordlicht Reinigung</span><strong data-count="213">213 reviews</strong></div>
+            <div><span>Elbe Sauber Service</span><strong data-count="89">89 reviews</strong></div>
+          </div>
+          <p class="insight" data-i18n="gapInsight">
             The strongest nearby competitor has 186 more Google reviews. The system gives the team a
             repeatable way to close the gap over time by asking real satisfied customers.
           </p>
         </article>
 
-        <article class="panel qr-panel">
-          <p class="eyebrow">QR card preview</p>
-          <h2>Ready for handover</h2>
-          <img
-            src="assets/qr-review-card-preview.png"
-            alt="Preview of the printable QR review card"
-            class="qr-card-preview"
-          />
-          <a class="button secondary" href="../output/pdf/qr-review-card.pdf" target="_blank" rel="noreferrer">
-            Open QR card
-          </a>
-        </article>
-
         <article class="panel templates-panel">
           <div class="panel-heading">
             <div>
-              <p class="eyebrow">Templates</p>
-              <h2>Ready messages</h2>
+              <p class="eyebrow" data-i18n="templatesEyebrow">Templates</p>
+              <h2 data-i18n="readyMessages">Ready messages</h2>
+              <p class="muted" data-i18n="readyMessagesText">
+                Simple messages for WhatsApp, email, SMS, follow-ups, and staff handover.
+              </p>
             </div>
-            <button class="button ghost" type="button" id="copyTemplate">Copy WhatsApp</button>
           </div>
-          <div class="template-tabs" role="tablist" aria-label="Message templates">
-            <button class="template-tab active" type="button" data-template="whatsapp">WhatsApp</button>
-            <button class="template-tab" type="button" data-template="email">Email</button>
-            <button class="template-tab" type="button" data-template="followup">Follow-up</button>
-          </div>
-          <pre id="templateText"></pre>
+          <div class="template-grid" id="templateGrid"></div>
         </article>
       </section>
     </main>
 
     <footer>
-      <span>Local Review Helper MVP</span>
-      <span>Browser-only demo · Data stays on this device</span>
+      <span data-i18n="footerProduct">Local Review Helper MVP</span>
+      <span data-i18n="footerPrivacy">Browser-only demo · Data stays on this device</span>
+      <button class="language-toggle" type="button" id="languageToggle">Sprache: Deutsch</button>
     </footer>
 
     <script src="app.js"></script>
