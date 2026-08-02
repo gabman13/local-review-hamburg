@@ -1,4 +1,4 @@
-# Local Review Helper MVP Kit
+# SterneWerk MVP Kit
 
 This folder contains a sample review collection system for a fictional Hamburg business: AlsterGlanz Reinigung.
 

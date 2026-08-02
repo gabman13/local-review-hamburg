@@ -1,4 +1,4 @@
-# Local Review Helper Personal Website
+# SterneWerk Personal Website
 
 A simple one-page personal website for Leo Gabman, a Hamburg-based project helping local businesses improve online reputation and collect more customer reviews.
 
@@ -16,7 +16,7 @@ Open `index.html` and replace the placeholder values marked in comments:
 
 - Replace `Leo Gabman` with your name.
 - Replace `Hamburg` if you want to use another city.
-- Replace `Local Review Helper` with your project name.
+- Replace `SterneWerk` with your project name.
 - Update the page title and meta description if your positioning changes.
 - Update the Open Graph URL from `https://your-username.github.io/your-repository/` to your real GitHub Pages URL.
 
