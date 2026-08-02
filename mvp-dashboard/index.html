@@ -14,6 +14,29 @@
     <link rel="stylesheet" href="style.css?v=sternewerk-1" />
   </head>
   <body>
+    <div class="crm-shell">
+      <aside class="crm-sidebar" id="crmSidebar">
+        <a class="sidebar-brand" href="#overview">
+          <img src="../assets/sternewerk-logo.png" alt="SterneWerk" />
+        </a>
+        <nav class="sidebar-nav" aria-label="CRM navigation">
+          <p class="sidebar-label" data-i18n="nav.workspace">Workspace</p>
+          <a href="#overview" data-route-link="overview"><span class="nav-icon">O</span><span data-i18n="nav.overview">Overview</span></a>
+          <a href="#pipeline" data-route-link="pipeline"><span class="nav-icon">P</span><span data-i18n="nav.pipeline">Pipeline</span></a>
+          <a href="#customers" data-route-link="customers"><span class="nav-icon">K</span><span data-i18n="nav.customers">Customers</span></a>
+          <a href="#reviews" data-route-link="reviews"><span class="nav-icon">R</span><span data-i18n="nav.reviews">Reviews</span></a>
+          <p class="sidebar-label" data-i18n="nav.resources">Resources</p>
+          <a href="#sources" data-route-link="sources"><span class="nav-icon">S</span><span data-i18n="nav.sources">Review sources</span></a>
+          <a href="#import" data-route-link="import"><span class="nav-icon">I</span><span data-i18n="nav.import">Import</span></a>
+          <a href="#files" data-route-link="files"><span class="nav-icon">F</span><span data-i18n="nav.files">Generated files</span></a>
+          <p class="sidebar-label" data-i18n="nav.account">Account</p>
+          <a href="#settings" data-route-link="settings"><span class="nav-icon">E</span><span data-i18n="nav.settings">Settings</span></a>
+        </nav>
+        <div class="sidebar-footer"><span class="sidebar-status-dot"></span><span data-i18n="nav.localDemo">Local demo</span></div>
+      </aside>
+
+      <div class="crm-content">
+        <button class="mobile-menu-button" type="button" id="mobileMenuButton" aria-expanded="false" aria-controls="crmSidebar" data-i18n="nav.menu">Menu</button>
     <header class="app-header">
       <div class="app-brand-heading">
         <img class="app-logo" src="../assets/sternewerk-logo.png" alt="SterneWerk" />
@@ -28,7 +51,7 @@
     </header>
 
     <main>
-      <section class="business-panel">
+      <section class="business-panel" data-route="overview">
         <div>
           <p class="eyebrow" data-i18n="demoBusiness">Demo business</p>
           <h2>AlsterGlanz Reinigung</h2>
@@ -42,20 +65,20 @@
         </div>
       </section>
 
-      <section class="dashboard-grid integrations-grid">
-        <article class="panel sources-panel">
+      <section class="dashboard-grid integrations-grid" data-route-group>
+        <article class="panel sources-panel" data-route="sources">
           <div class="panel-heading">
             <div>
               <p class="eyebrow" data-i18n="sources.eyebrow">Review sources</p>
               <h2 data-i18n="sources.title">Connect review platforms</h2>
               <p class="muted section-helper" data-i18n="sources.helper">
-                Paste a business profile URL. SterneWerk detects the platform and shows what a secure server connection can import.
+                Paste a Google Maps link. No business name or address is needed.
               </p>
             </div>
           </div>
           <form class="source-form" id="reviewSourceForm">
             <label>
-              <span data-i18n="sources.urlLabel">Business profile URL</span>
+              <span data-i18n="sources.urlLabel">Google Maps link</span>
               <input
                 type="url"
                 id="reviewSourceUrl"
@@ -71,7 +94,7 @@
           <div class="sources-list" id="reviewSources"></div>
         </article>
 
-        <aside class="panel imported-reviews-panel">
+        <aside class="panel imported-reviews-panel" data-route="reviews">
           <p class="eyebrow" data-i18n="reviews.eyebrow">Imported reviews</p>
           <h2 data-i18n="reviews.title">All customer reviews</h2>
           <p class="muted section-helper" data-i18n="reviews.helper">
@@ -85,7 +108,7 @@
         </aside>
       </section>
 
-      <section class="kpi-grid" aria-label="Review system metrics" data-i18n-attr="aria-label:metricsAria">
+      <section class="kpi-grid" data-route="overview" aria-label="Review system metrics" data-i18n-attr="aria-label:metricsAria">
         <article class="kpi-card">
           <span data-i18n="totalRequests">Total requests</span>
           <strong id="totalRequests">0</strong>
@@ -108,8 +131,8 @@
         </article>
       </section>
 
-      <section class="dashboard-grid">
-        <article class="panel tracker-panel">
+      <section class="dashboard-grid" data-route-group>
+        <article class="panel tracker-panel" data-route="pipeline">
           <div class="panel-heading">
             <div>
               <p class="eyebrow" data-i18n="tracker">Tracker</p>
@@ -152,7 +175,7 @@
           </div>
         </article>
 
-        <aside class="panel form-panel">
+        <aside class="panel form-panel" data-route="pipeline">
           <p class="eyebrow" data-i18n="addRequest">Add request</p>
           <h2 data-i18n="logCustomer">Log a customer</h2>
           <form id="requestForm">
@@ -206,7 +229,7 @@
         </aside>
       </section>
 
-      <section class="panel files-panel">
+      <section class="panel files-panel" data-route="files">
         <div class="panel-heading files-heading">
           <div>
             <p class="eyebrow" data-i18n="generatedFilesEyebrow">Generated files</p>
@@ -226,7 +249,7 @@
         <div class="file-grid" id="generatedFiles"></div>
       </section>
 
-      <section class="dashboard-grid lower-grid">
+      <section class="dashboard-grid lower-grid" data-route="overview">
         <article class="panel">
           <p class="eyebrow" data-i18n="competitorGap">Competitor gap</p>
           <h2 data-i18n="whyMatters">Why this matters</h2>
@@ -256,6 +279,68 @@
           <div class="template-grid" id="templateGrid"></div>
         </article>
       </section>
+
+      <section class="panel route-panel" data-route="customers">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow" data-i18n="nav.customers">Customers</p>
+            <h2 data-i18n="pageTitles.customers">Customer list</h2>
+            <p class="muted section-helper" data-i18n="customersText">A simple view of everyone in the review request pipeline.</p>
+          </div>
+          <label class="filter-label compact-search">
+            <span data-i18n="customerSearch">Search customers</span>
+            <input type="search" id="customerSearch" placeholder="Anna Müller" data-i18n-attr="placeholder:customerSearch" />
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table class="customer-table">
+            <thead>
+              <tr>
+                <th data-i18n="tableCustomer">Customer</th>
+                <th data-i18n="contact">Contact</th>
+                <th data-i18n="lastService">Last service</th>
+                <th data-i18n="lastContact">Last contact</th>
+                <th data-i18n="tableStatus">Status</th>
+              </tr>
+            </thead>
+            <tbody id="customerTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel route-panel import-panel" data-route="import">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow" data-i18n="nav.import">Import</p>
+            <h2 data-i18n="importTitle">Import customer data</h2>
+            <p class="muted section-helper" data-i18n="importText">Upload a comma- or semicolon-separated CSV export. You can review the rows before adding them.</p>
+          </div>
+          <div class="import-actions">
+            <label class="button secondary file-picker">
+              <span data-i18n="chooseCsv">Choose CSV file</span>
+              <input type="file" id="csvFileInput" accept=".csv,text/csv" />
+            </label>
+            <button class="button ghost" type="button" id="downloadCsvTemplate" data-i18n="downloadTemplate">Download CSV template</button>
+          </div>
+        </div>
+        <p class="import-status" id="csvImportStatus" aria-live="polite"></p>
+        <div class="import-preview" id="csvPreview">
+          <h3 data-i18n="previewTitle">Import preview</h3>
+          <p class="muted" data-i18n="previewEmpty">Choose a CSV file to see a preview here.</p>
+        </div>
+        <button class="button primary compact-primary" type="button" id="confirmCsvImport" hidden data-i18n="confirmImport">Import records</button>
+      </section>
+
+      <section class="panel route-panel settings-panel" data-route="settings">
+        <p class="eyebrow" data-i18n="nav.settings">Settings</p>
+        <h2 data-i18n="settingsTitle">CRM settings</h2>
+        <p class="muted section-helper" data-i18n="settingsText">This prototype stores CRM data in this browser. Server integrations can be connected here later.</p>
+        <div class="settings-list">
+          <div><span data-i18n="storageLabel">Storage</span><strong data-i18n="storageValue">Local browser storage</strong></div>
+          <div><span data-i18n="languageLabel">Language</span><strong>English · Deutsch · Русский</strong></div>
+          <div><span>Brand</span><strong>SterneWerk</strong></div>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -270,6 +355,8 @@
         <button class="language-option" type="button" data-language="ru">Русский</button>
       </div>
     </footer>
+      </div>
+    </div>
 
     <script src="review-providers.js"></script>
     <script src="app.js"></script>

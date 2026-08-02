@@ -9,6 +9,10 @@ vm.runInContext(fs.readFileSync(new URL("./review-providers.js", import.meta.url
 const { detect } = context.window.ReviewProviders;
 
 assert.equal(detect("https://maps.google.com/?cid=123").provider, "google");
+assert.equal(detect("https://maps.google.com/?query_place_id=ChIJ123").externalReference.type, "place-id");
+assert.equal(detect("https://maps.google.com/?query_place_id=ChIJ123").externalReference.value, "ChIJ123");
+assert.equal(detect("https://maps.google.com/?cid=123").externalReference.type, "cid");
+assert.equal(detect("https://maps.google.com/?cid=123").externalReference.value, "123");
 assert.equal(detect("https://maps.app.goo.gl/example").provider, "google");
 assert.equal(detect("trustpilot.com/review/example.com").provider, "trustpilot");
 assert.equal(detect("https://www.tripadvisor.de/Restaurant_Review-example").provider, "tripadvisor");

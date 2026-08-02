@@ -4,72 +4,57 @@ const REVIEW_SOURCES_STORAGE_KEY = "sternewerk-review-sources";
 const PAGE_SIZE = 10;
 
 const seedRequests = [
-  {
-    id: crypto.randomUUID(),
-    customerName: "Maria S.",
-    serviceDate: "2026-06-03",
-    serviceType: "Apartment cleaning",
-    satisfied: true,
-    channel: "whatsapp",
-    requestSent: true,
-    followUpSent: false,
-    reviewReceived: true,
-    statusKey: "reviewed",
-    actionKey: "reply",
-    reviewDate: "2026-06-04",
-    notes: "Positive review received",
-  },
-  {
-    id: crypto.randomUUID(),
-    customerName: "Herr Weber",
-    serviceDate: "2026-06-07",
-    serviceType: "Office cleaning",
-    satisfied: true,
-    channel: "email",
-    requestSent: true,
-    followUpSent: true,
-    reviewReceived: false,
-    statusKey: "waiting",
-    actionKey: "check",
-    reviewDate: "",
-    notes: "Follow-up sent after 3 days",
-  },
-  {
-    id: crypto.randomUUID(),
-    customerName: "Cafe Morgen",
-    serviceDate: "2026-06-11",
-    serviceType: "Window cleaning",
-    satisfied: true,
-    channel: "qr",
-    requestSent: true,
-    followUpSent: false,
-    reviewReceived: false,
-    statusKey: "follow-up",
-    actionKey: "reminder",
-    reviewDate: "",
-    notes: "Staff handed card after job",
-  },
-  {
-    id: crypto.randomUUID(),
-    customerName: "Frau Klein",
-    serviceDate: "2026-06-14",
-    serviceType: "Move-out cleaning",
-    satisfied: false,
-    channel: "none",
-    requestSent: false,
-    followUpSent: false,
-    reviewReceived: false,
-    statusKey: "not-satisfied",
-    actionKey: "resolve",
-    reviewDate: "",
-    notes: "Do not request review until issue resolved",
-  },
-];
+  ["Anna Müller", "2026-06-03", "Apartment cleaning", "whatsapp", "reviewed", "reply", "anna.mueller@example.com", "+49 151 201 4421", "Positive review received"],
+  ["David Cohen", "2026-06-05", "Office cleaning", "email", "waiting", "check", "david.cohen@example.com", "+49 160 882 1930", "Follow-up sent after 3 days"],
+  ["Sophie Wagner", "2026-06-07", "Window cleaning", "qr", "follow-up", "reminder", "sophie.wagner@example.com", "+49 171 420 7782", "Staff handed card after the job"],
+  ["Leon Becker", "2026-06-08", "Move-out cleaning", "phone", "not-satisfied", "resolve", "leon.becker@example.com", "+49 152 663 8901", "Resolve small issue before asking"],
+  ["Maria Schmidt", "2026-06-10", "Consultation", "whatsapp", "ready", "send", "maria.schmidt@example.com", "+49 176 317 0042", "Very happy with the first consultation"],
+  ["Daniel Hoffmann", "2026-06-11", "Installation", "email", "reviewed", "reply", "daniel.hoffmann@example.com", "+49 151 493 7021", "Review received from Google"],
+  ["Sarah Klein", "2026-06-12", "Repair appointment", "phone", "follow-up", "reminder", "sarah.klein@example.com", "+49 157 890 4420", "Send one friendly reminder"],
+  ["Jonas Weber", "2026-06-14", "Service appointment", "sms", "waiting", "check", "jonas.weber@example.com", "+49 172 508 3318", "Waiting for customer response"],
+  ["Emily Fischer", "2026-06-15", "Coaching session", "whatsapp", "ready", "send", "emily.fischer@example.com", "+49 163 244 9017", "Customer confirmed satisfaction"],
+  ["Noah Rosenberg", "2026-06-17", "Consultation", "email", "reviewed", "reply", "noah.rosenberg@example.com", "+49 176 778 1342", "Reply still needs a draft"],
+  ["Laura Schneider", "2026-06-18", "Deep cleaning", "qr", "ready", "send", "laura.schneider@example.com", "+49 151 901 8820", "QR card prepared"],
+  ["Michael Brandt", "2026-06-19", "Repair appointment", "phone", "follow-up", "reminder", "michael.brandt@example.com", "+49 160 331 7902", "Call back after the weekend"],
+  ["Clara Neumann", "2026-06-20", "First consultation", "whatsapp", "waiting", "check", "clara.neumann@example.com", "+49 171 209 5400", "Message seen, no review yet"],
+  ["Felix Hartmann", "2026-06-21", "Installation", "email", "ready", "send", "felix.hartmann@example.com", "+49 152 900 1458", "Ready for first request"],
+  ["Nina Peters", "2026-06-22", "Follow-up appointment", "sms", "reviewed", "reply", "nina.peters@example.com", "+49 157 612 8083", "Five-star review received"],
+  ["Oliver König", "2026-06-23", "Office cleaning", "whatsapp", "not-satisfied", "resolve", "oliver.koenig@example.com", "+49 176 284 7301", "Customer requested a correction"],
+  ["Hannah Wolf", "2026-06-24", "Window cleaning", "qr", "ready", "send", "hannah.wolf@example.com", "+49 151 770 1834", "Hand over card at next visit"],
+  ["Elias Meyer", "2026-06-25", "Service appointment", "email", "waiting", "check", "elias.meyer@example.com", "+49 160 449 2810", "Review request sent yesterday"],
+  ["Isabel Richter", "2026-06-26", "Consultation", "phone", "follow-up", "reminder", "isabel.richter@example.com", "+49 172 661 0394", "Try a short phone follow-up"],
+  ["Thomas Bauer", "2026-06-27", "Repair appointment", "whatsapp", "ready", "send", "thomas.bauer@example.com", "+49 163 508 7211", "Satisfied after repair"],
+  ["Maya Stein", "2026-06-28", "Coaching session", "email", "reviewed", "reply", "maya.stein@example.com", "+49 176 930 4418", "Review mentions the team by name"],
+  ["Robert Lehmann", "2026-06-29", "Move-out cleaning", "sms", "waiting", "check", "robert.lehmann@example.com", "+49 151 690 3008", "Follow up next Tuesday"],
+  ["Ava Martin", "2026-06-30", "Installation", "whatsapp", "ready", "send", "ava.martin@example.com", "+49 157 320 5541", "New customer from Google Maps"],
+  ["Matteo Russo", "2026-07-01", "Office cleaning", "phone", "follow-up", "reminder", "matteo.russo@example.com", "+49 160 771 4429", "Ask whether the link arrived"],
+].map(([customerName, serviceDate, serviceType, channel, statusKey, actionKey, email, phone, notes]) => ({
+  id: crypto.randomUUID(),
+  customerName,
+  serviceDate,
+  serviceType,
+  email,
+  phone,
+  channel,
+  statusKey,
+  actionKey,
+  satisfied: statusKey !== "not-satisfied",
+  requestSent: ["waiting", "follow-up", "reviewed"].includes(statusKey),
+  followUpSent: statusKey === "waiting",
+  reviewReceived: statusKey === "reviewed",
+  reviewDate: statusKey === "reviewed" ? serviceDate : "",
+  lastContactAt: serviceDate,
+  createdAt: serviceDate,
+  updatedAt: serviceDate,
+  notes,
+}));
 
 const translations = {
   en: {
     metaTitle: "SterneWerk - MVP Dashboard",
     appTitle: "Review Collection Dashboard",
+    pageTitles: { overview: "Overview", pipeline: "Review request pipeline", customers: "Customers", reviews: "Imported reviews", sources: "Review sources", import: "Import customer data", files: "Generated files", settings: "Settings" },
+    nav: { workspace: "Workspace", resources: "Resources", account: "Account", localDemo: "Local demo", menu: "Menu", overview: "Overview", pipeline: "Pipeline", customers: "Customers", reviews: "Reviews", sources: "Review sources", import: "Import", files: "Generated files", settings: "Settings" },
     exportCsv: "Export CSV",
     resetDemo: "Reset demo",
     demoBusiness: "Demo business",
@@ -135,14 +120,32 @@ const translations = {
     nextPage: "Next",
     pageIndicator: "Page {current} of {total} · {count} entries",
     noRows: "No matching entries yet. Try another status or log the next customer.",
+    customersText: "A simple view of everyone in the review request pipeline.",
+    customerSearch: "Search customers",
+    lastService: "Last service",
+    lastContact: "Last contact",
+    contact: "Contact",
+    importTitle: "Import customer data",
+    importText: "Upload a comma- or semicolon-separated CSV export. You can review the rows before adding them.",
+    chooseCsv: "Choose CSV file",
+    downloadTemplate: "Download CSV template",
+    previewTitle: "Import preview",
+    previewEmpty: "Choose a CSV file to see a preview here.",
+    confirmImport: "Import records",
+    importSuccess: "{imported} records imported. {skipped} rows skipped.",
+    importError: "Could not read this CSV file.",
+    settingsTitle: "CRM settings",
+    settingsText: "This prototype stores CRM data in this browser. Server integrations can be connected here later.",
+    storageLabel: "Storage",
+    storageValue: "Local browser storage",
     today: "Today",
     undo: "Undo",
     markReview: "Mark review",
     sources: {
       eyebrow: "Review sources",
       title: "Connect review platforms",
-      helper: "Paste a business profile URL. SterneWerk detects the platform and shows what a secure server connection can import.",
-      urlLabel: "Business profile URL",
+      helper: "Paste a Google Maps link. No business name or address is needed.",
+      urlLabel: "Google Maps link",
       urlPlaceholder: "https://maps.google.com/...",
       add: "Add review source",
       invalidUrl: "Enter a complete public profile URL.",
@@ -156,6 +159,8 @@ const translations = {
       syncBlocked: "This static demo cannot sync reviews. Add the provider credentials to a server first.",
       partial: "This provider may only return a partial review sample.",
       complete: "The completeness of this source is not confirmed until the server connection is configured.",
+      linkReference: "Google reference found in the link: {reference}",
+      linkResolution: "The server will resolve this Google Maps link on the first sync.",
     },
     reviews: {
       eyebrow: "Imported reviews",
@@ -177,6 +182,7 @@ const translations = {
       email: "Email",
       qr: "QR card",
       phone: "Phone",
+      sms: "SMS",
       none: "None",
     },
     statusSelect: {
@@ -188,10 +194,15 @@ const translations = {
     },
     actions: {
       send: "Send request",
+      whatsapp: "Send WhatsApp",
+      email: "Send email",
+      call: "Call customer",
       reminder: "Send reminder",
       check: "Check next week",
       reply: "Reply to review",
       resolve: "Resolve issue first",
+      none: "No action",
+      custom: "Custom action",
     },
     statuses: {
       notSatisfied: { label: "Do not ask yet", action: "Resolve issue first" },
@@ -287,6 +298,8 @@ const translations = {
   de: {
     metaTitle: "SterneWerk - MVP-Dashboard",
     appTitle: "Dashboard für Bewertungsanfragen",
+    pageTitles: { overview: "Übersicht", pipeline: "Pipeline für Bewertungsanfragen", customers: "Kunden", reviews: "Importierte Bewertungen", sources: "Bewertungsquellen", import: "Kundendaten importieren", files: "Generierte Dateien", settings: "Einstellungen" },
+    nav: { workspace: "Arbeitsbereich", resources: "Ressourcen", account: "Konto", localDemo: "Lokale Demo", menu: "Menü", overview: "Übersicht", pipeline: "Pipeline", customers: "Kunden", reviews: "Bewertungen", sources: "Bewertungsquellen", import: "Datenimport", files: "Generierte Dateien", settings: "Einstellungen" },
     exportCsv: "CSV exportieren",
     resetDemo: "Demo zurücksetzen",
     demoBusiness: "Demo-Unternehmen",
@@ -352,14 +365,32 @@ const translations = {
     nextPage: "Weiter",
     pageIndicator: "Seite {current} von {total} · {count} Einträge",
     noRows: "Noch keine passenden Einträge. Wählen Sie einen anderen Status oder tragen Sie den nächsten Kunden ein.",
+    customersText: "Eine klare Übersicht aller Kunden in der Bewertungspipeline.",
+    customerSearch: "Kunden suchen",
+    lastService: "Letzte Leistung",
+    lastContact: "Letzter Kontakt",
+    contact: "Kontakt",
+    importTitle: "Kundendaten importieren",
+    importText: "Laden Sie einen CSV-Export mit Komma oder Semikolon hoch. Vor dem Import können Sie die Zeilen prüfen.",
+    chooseCsv: "CSV-Datei auswählen",
+    downloadTemplate: "CSV-Vorlage herunterladen",
+    previewTitle: "Importvorschau",
+    previewEmpty: "Wählen Sie eine CSV-Datei aus, um hier eine Vorschau zu sehen.",
+    confirmImport: "Datensätze importieren",
+    importSuccess: "{imported} Datensätze importiert. {skipped} Zeilen übersprungen.",
+    importError: "Diese CSV-Datei konnte nicht gelesen werden.",
+    settingsTitle: "CRM-Einstellungen",
+    settingsText: "Dieses MVP speichert CRM-Daten in diesem Browser. Später können hier Server-Integrationen verbunden werden.",
+    storageLabel: "Speicherort",
+    storageValue: "Lokaler Browser-Speicher",
     today: "Heute",
     undo: "Rückgängig",
     markReview: "Bewertung markieren",
     sources: {
       eyebrow: "Bewertungsquellen",
       title: "Bewertungsplattformen verbinden",
-      helper: "Fügen Sie die URL eines Unternehmensprofils ein. SterneWerk erkennt die Plattform und zeigt, was eine sichere Server-Verbindung importieren kann.",
-      urlLabel: "URL des Unternehmensprofils",
+      helper: "Fügen Sie einen Google-Maps-Link ein. Ein Unternehmensname oder eine Adresse ist nicht nötig.",
+      urlLabel: "Google-Maps-Link",
       urlPlaceholder: "https://maps.google.com/...",
       add: "Bewertungsquelle hinzufügen",
       invalidUrl: "Geben Sie eine vollständige öffentliche Profil-URL ein.",
@@ -373,6 +404,8 @@ const translations = {
       syncBlocked: "Diese statische Demo kann keine Bewertungen synchronisieren. Richten Sie zuerst die Anbieter-Zugangsdaten auf einem Server ein.",
       partial: "Dieser Anbieter liefert möglicherweise nur eine begrenzte Bewertungsstichprobe.",
       complete: "Die Vollständigkeit ist erst nach Einrichtung der Server-Verbindung bestätigt.",
+      linkReference: "Google-Referenz im Link gefunden: {reference}",
+      linkResolution: "Der Server löst diesen Google-Maps-Link bei der ersten Synchronisierung auf.",
     },
     reviews: {
       eyebrow: "Importierte Bewertungen",
@@ -394,6 +427,7 @@ const translations = {
       email: "E-Mail",
       qr: "QR-Karte",
       phone: "Telefon",
+      sms: "SMS",
       none: "Keiner",
     },
     statusSelect: {
@@ -405,10 +439,15 @@ const translations = {
     },
     actions: {
       send: "Anfrage senden",
+      whatsapp: "WhatsApp senden",
+      email: "E-Mail senden",
+      call: "Kunden anrufen",
       reminder: "Erinnerung senden",
       check: "Nächste Woche prüfen",
       reply: "Auf Bewertung antworten",
       resolve: "Problem zuerst lösen",
+      none: "Keine Aktion",
+      custom: "Benutzerdefinierte Aktion",
     },
     statuses: {
       notSatisfied: { label: "Noch nicht fragen", action: "Problem zuerst lösen" },
@@ -504,6 +543,8 @@ const translations = {
   ru: {
     metaTitle: "SterneWerk - MVP-панель",
     appTitle: "Панель сбора отзывов",
+    pageTitles: { overview: "Обзор", pipeline: "Воронка запросов отзывов", customers: "Клиенты", reviews: "Импортированные отзывы", sources: "Источники отзывов", import: "Импорт данных клиентов", files: "Готовые файлы", settings: "Настройки" },
+    nav: { workspace: "Рабочая область", resources: "Ресурсы", account: "Аккаунт", localDemo: "Локальное демо", menu: "Меню", overview: "Обзор", pipeline: "Воронка", customers: "Клиенты", reviews: "Отзывы", sources: "Источники отзывов", import: "Импорт данных", files: "Готовые файлы", settings: "Настройки" },
     exportCsv: "Экспорт CSV",
     resetDemo: "Сбросить демо",
     demoBusiness: "Демо-компания",
@@ -569,14 +610,32 @@ const translations = {
     nextPage: "Вперед",
     pageIndicator: "Страница {current} из {total} · записей: {count}",
     noRows: "Под этот фильтр пока нет записей. Выберите другой статус или добавьте следующего клиента.",
+    customersText: "Простой список всех клиентов в воронке запросов отзывов.",
+    customerSearch: "Поиск клиентов",
+    lastService: "Последняя услуга",
+    lastContact: "Последний контакт",
+    contact: "Контакт",
+    importTitle: "Импорт данных клиентов",
+    importText: "Загрузите CSV-файл с разделителем-запятой или точкой с запятой. Перед импортом можно проверить строки.",
+    chooseCsv: "Выбрать CSV-файл",
+    downloadTemplate: "Скачать шаблон CSV",
+    previewTitle: "Предпросмотр импорта",
+    previewEmpty: "Выберите CSV-файл, чтобы увидеть здесь предпросмотр.",
+    confirmImport: "Импортировать записи",
+    importSuccess: "Импортировано записей: {imported}. Пропущено строк: {skipped}.",
+    importError: "Не удалось прочитать этот CSV-файл.",
+    settingsTitle: "Настройки CRM",
+    settingsText: "Этот прототип хранит данные CRM в браузере. Позже здесь можно подключить серверные интеграции.",
+    storageLabel: "Хранение данных",
+    storageValue: "Локальное хранилище браузера",
     today: "Сегодня",
     undo: "Отменить",
     markReview: "Отметить отзыв",
     sources: {
       eyebrow: "Источники отзывов",
       title: "Подключите платформы с отзывами",
-      helper: "Вставьте URL профиля компании. SterneWerk определит платформу и покажет, что можно импортировать через безопасное серверное подключение.",
-      urlLabel: "URL профиля компании",
+      helper: "Вставьте ссылку Google Maps. Название компании или адрес не нужны.",
+      urlLabel: "Ссылка Google Maps",
       urlPlaceholder: "https://maps.google.com/...",
       add: "Добавить источник отзывов",
       invalidUrl: "Введите полный публичный URL профиля.",
@@ -590,6 +649,8 @@ const translations = {
       syncBlocked: "Эта статическая демоверсия не может синхронизировать отзывы. Сначала добавьте учетные данные провайдера на сервере.",
       partial: "Этот провайдер может возвращать только ограниченную выборку отзывов.",
       complete: "Полнота данных будет подтверждена после настройки серверного подключения.",
+      linkReference: "В ссылке найдена Google-идентификация: {reference}",
+      linkResolution: "Сервер обработает эту ссылку Google Maps при первой синхронизации.",
     },
     reviews: {
       eyebrow: "Импортированные отзывы",
@@ -611,6 +672,7 @@ const translations = {
       email: "Email",
       qr: "QR-карта",
       phone: "Телефон",
+      sms: "SMS",
       none: "Нет",
     },
     statusSelect: {
@@ -622,10 +684,15 @@ const translations = {
     },
     actions: {
       send: "Отправить запрос",
+      whatsapp: "Отправить WhatsApp",
+      email: "Отправить email",
+      call: "Позвонить клиенту",
       reminder: "Отправить напоминание",
       check: "Проверить на следующей неделе",
       reply: "Ответить на отзыв",
       resolve: "Сначала решить проблему",
+      none: "Без действия",
+      custom: "Свой вариант",
     },
     statuses: {
       notSatisfied: { label: "Пока не спрашивать", action: "Сначала решить проблему" },
@@ -783,9 +850,9 @@ const templateCategories = {
 const fileCategoryOrder = ["core", "support", "all"];
 const templateCategoryOrder = ["whatsapp", "email", "other", "all"];
 
-const channelOptions = ["whatsapp", "email", "qr", "phone"];
+const channelOptions = ["whatsapp", "email", "sms", "qr", "phone"];
 const statusOptions = ["ready", "follow-up", "waiting", "reviewed", "not-satisfied"];
-const actionOptions = ["send", "reminder", "check", "reply", "resolve"];
+const actionOptions = ["send", "whatsapp", "email", "call", "reminder", "check", "reply", "resolve", "none", "custom"];
 const defaultActionByStatus = {
   ready: "send",
   "follow-up": "reminder",
@@ -795,6 +862,7 @@ const defaultActionByStatus = {
 };
 
 const elements = {
+  appTitle: document.querySelector("h1"),
   totalRequests: document.querySelector("#totalRequests"),
   reviewsReceived: document.querySelector("#reviewsReceived"),
   conversionRate: document.querySelector("#conversionRate"),
@@ -823,6 +891,14 @@ const elements = {
   reviewSources: document.querySelector("#reviewSources"),
   reviewSourceFilter: document.querySelector("#reviewSourceFilter"),
   importedReviews: document.querySelector("#importedReviews"),
+  customerSearch: document.querySelector("#customerSearch"),
+  customerTable: document.querySelector("#customerTable"),
+  csvFileInput: document.querySelector("#csvFileInput"),
+  csvPreview: document.querySelector("#csvPreview"),
+  csvImportStatus: document.querySelector("#csvImportStatus"),
+  confirmCsvImport: document.querySelector("#confirmCsvImport"),
+  downloadCsvTemplate: document.querySelector("#downloadCsvTemplate"),
+  mobileMenuButton: document.querySelector("#mobileMenuButton"),
 };
 
 let requests = loadRequests();
@@ -835,10 +911,20 @@ let activeFileCategory = "core";
 let activeTemplateCategory = "whatsapp";
 let currentPage = 1;
 let reviewSourceMessage = "";
+let currentRoute = getRoute();
+let pendingCsvImport = null;
+let pendingCsvSkipped = 0;
 
 function t(key) {
   const dictionary = translations[language] || translations.en;
   return key.split(".").reduce((value, part) => (value ? value[part] : undefined), dictionary) || key;
+}
+
+function getRoute() {
+  const route = window.location.hash.replace(/^#/, "");
+  return ["overview", "pipeline", "customers", "reviews", "sources", "import", "files", "settings"].includes(route)
+    ? route
+    : "overview";
 }
 
 function loadRequests() {
@@ -849,10 +935,16 @@ function loadRequests() {
   }
 
   try {
-    return JSON.parse(saved).map(normalizeRequest);
+    const savedRequests = JSON.parse(saved).map(normalizeRequest).filter((request) => !isJunkRequest(request));
+    return savedRequests.length >= 8 ? savedRequests : [...seedRequests];
   } catch {
     return [...seedRequests];
   }
+}
+
+function isJunkRequest(request) {
+  const value = `${request.customerName || ""} ${request.serviceType || ""}`.toLowerCase();
+  return /asdasd|test kunde|neue kundin|lorem ipsum/.test(value) || value.trim().length < 5;
 }
 
 function normalizeRequest(request) {
@@ -861,11 +953,17 @@ function normalizeRequest(request) {
     Email: "email",
     "QR card": "qr",
     Phone: "phone",
+    SMS: "sms",
     None: "none",
   };
 
   return {
     ...request,
+    email: request.email || "",
+    phone: request.phone || "",
+    lastContactAt: request.lastContactAt || request.serviceDate || "",
+    createdAt: request.createdAt || request.serviceDate || "",
+    updatedAt: request.updatedAt || request.serviceDate || "",
     channel: channelMap[request.channel] || request.channel || "whatsapp",
     statusKey: request.statusKey || inferStatusKey(request),
     actionKey: request.actionKey || defaultActionByStatus[request.statusKey || inferStatusKey(request)] || "send",
@@ -887,7 +985,7 @@ function inferStatusKey(request) {
     return "follow-up";
   }
 
-  return "waiting";
+  return request.requestSent ? "follow-up" : "ready";
 }
 
 function saveRequests() {
@@ -932,6 +1030,9 @@ function renderReviewSources() {
     .map((source) => {
       const provider = sourceProviderCopy(source);
       const availability = source.publicDataset === "partial" ? t("sources.partial") : t("sources.complete");
+      const resolution = source.externalReference
+        ? t("sources.linkReference").replace("{reference}", source.externalReference.value)
+        : t("sources.linkResolution");
 
       return `
         <article class="source-card">
@@ -944,6 +1045,7 @@ function renderReviewSources() {
           </div>
           <p>${escapeHtml(provider.note)}</p>
           <p class="source-availability">${escapeHtml(availability)}</p>
+          ${source.provider === "google" ? `<p class="source-resolution">${escapeHtml(resolution)}</p>` : ""}
           <div class="source-card-footer">
             <span>${t("sources.lastSync")} · ${t("sources.imported").replace("{count}", String(source.importedCount || 0))}</span>
             <div class="source-actions">
@@ -988,7 +1090,7 @@ function getStatus(request) {
     return { key: "waiting", copy: t("statuses.waiting") };
   }
 
-  return { key: "waiting", copy: t("statuses.ready") };
+  return { key: "ready", copy: t("statuses.ready") };
 }
 
 function applyStaticTranslations() {
@@ -1040,6 +1142,12 @@ function renderStatusAndActionOptions() {
   elements.actionSelect.value = currentAction;
 }
 
+function optionMarkup(options, copyKey, selectedValue) {
+  return options
+    .map((option) => `<option value="${option}"${option === selectedValue ? " selected" : ""}>${escapeHtml(t(`${copyKey}.${option}`))}</option>`)
+    .join("");
+}
+
 function renderMetrics() {
   const askableRequests = requests.filter((request) => request.satisfied && request.requestSent).length;
   const received = requests.filter((request) => request.reviewReceived).length;
@@ -1072,8 +1180,16 @@ function renderTable() {
           <td><strong>${escapeHtml(request.customerName)}</strong><br /><small>${escapeHtml(request.serviceDate || t("today"))}</small></td>
           <td>${escapeHtml(request.serviceType)}<br /><small>${escapeHtml(request.notes || "")}</small></td>
           <td>${escapeHtml(t(`channels.${request.channel}`))}</td>
-          <td><span class="status-pill status-${status.key}">${status.copy.label}</span></td>
-          <td>${status.copy.action}</td>
+          <td>
+            <select class="inline-select" data-request-status="${request.id}" aria-label="${escapeHtml(t("tableStatus"))}">
+              ${optionMarkup(statusOptions, "statusSelect", status.key)}
+            </select>
+          </td>
+          <td>
+            <select class="inline-select" data-request-action="${request.id}" aria-label="${escapeHtml(t("tableNextAction"))}">
+              ${optionMarkup(actionOptions, "actions", request.actionKey)}
+            </select>
+          </td>
           <td><button class="row-action" type="button" data-toggle-review="${request.id}">${
             request.reviewReceived ? t("undo") : t("markReview")
           }</button></td>
@@ -1167,6 +1283,158 @@ function renderTemplates() {
     .join("");
 }
 
+function renderCustomerTable() {
+  const query = (elements.customerSearch?.value || "").trim().toLowerCase();
+  const visibleRequests = requests.filter((request) => {
+    const haystack = `${request.customerName} ${request.email || ""} ${request.phone || ""} ${request.serviceType}`.toLowerCase();
+    return !query || haystack.includes(query);
+  });
+
+  elements.customerTable.innerHTML = visibleRequests
+    .map((request) => {
+      const status = getStatus(request);
+      return `
+        <tr>
+          <td><strong>${escapeHtml(request.customerName)}</strong><br /><small>${escapeHtml(request.email || "")}</small></td>
+          <td>${escapeHtml(request.phone || "")}<br /><small>${escapeHtml(request.channel ? t(`channels.${request.channel}`) : "")}</small></td>
+          <td>${escapeHtml(request.serviceType)}<br /><small>${escapeHtml(request.serviceDate || "")}</small></td>
+          <td>${escapeHtml(request.lastContactAt || request.serviceDate || "")}</td>
+          <td><span class="status-pill status-${status.key}">${escapeHtml(status.copy.label)}</span></td>
+        </tr>
+      `;
+    })
+    .join("");
+
+  if (!visibleRequests.length) {
+    elements.customerTable.innerHTML = `<tr><td colspan="5">${escapeHtml(t("noRows"))}</td></tr>`;
+  }
+}
+
+function applyRoute() {
+  currentRoute = getRoute();
+  document.body.dataset.route = currentRoute;
+  elements.appTitle.textContent = t(`pageTitles.${currentRoute}`);
+
+  document.querySelectorAll("[data-route]").forEach((element) => {
+    const routes = element.dataset.route.split(" ");
+    element.hidden = !routes.includes(currentRoute);
+  });
+
+  document.querySelectorAll("[data-route-group]").forEach((group) => {
+    const visibleChild = Array.from(group.querySelectorAll(":scope > [data-route]")).some((element) => !element.hidden);
+    group.hidden = !visibleChild;
+    group.classList.toggle("single-route", visibleChild && group.querySelectorAll(":scope > [data-route]:not([hidden])").length === 1);
+  });
+
+  document.querySelectorAll("[data-route-link]").forEach((link) => {
+    const active = link.dataset.routeLink === currentRoute;
+    link.classList.toggle("active", active);
+    link.setAttribute("aria-current", active ? "page" : "false");
+  });
+}
+
+function normalizeImportedHeader(header) {
+  return String(header || "")
+    .replace(/^\uFEFF/, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[ä]/g, "a")
+    .replace(/[ö]/g, "o")
+    .replace(/[ü]/g, "u")
+    .replace(/ß/g, "ss")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function parseCsv(text) {
+  const delimiter = (text.split("\n")[0].match(/;/g) || []).length > (text.split("\n")[0].match(/,/g) || []).length ? ";" : ",";
+  const rows = [];
+  let row = [];
+  let value = "";
+  let quoted = false;
+
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index];
+    const nextCharacter = text[index + 1];
+    if (character === '"' && quoted && nextCharacter === '"') {
+      value += '"';
+      index += 1;
+    } else if (character === '"') {
+      quoted = !quoted;
+    } else if (character === delimiter && !quoted) {
+      row.push(value.trim());
+      value = "";
+    } else if ((character === "\n" || character === "\r") && !quoted) {
+      if (character === "\r" && nextCharacter === "\n") index += 1;
+      row.push(value.trim());
+      if (row.some((cell) => cell)) rows.push(row);
+      row = [];
+      value = "";
+    } else {
+      value += character;
+    }
+  }
+
+  row.push(value.trim());
+  if (row.some((cell) => cell)) rows.push(row);
+  if (rows.length < 2) return { headers: rows[0] || [], rows: [], delimiter };
+  return { headers: rows[0], rows: rows.slice(1).map((cells) => Object.fromEntries(rows[0].map((header, index) => [header, cells[index] || ""]))), delimiter };
+}
+
+function valueFromRow(row, aliases) {
+  const entry = Object.entries(row).find(([header]) => aliases.includes(normalizeImportedHeader(header)));
+  return entry ? String(entry[1] || "").trim() : "";
+}
+
+function parseImportedDate(value) {
+  const text = String(value || "").trim();
+  const match = text.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{2,4})$/);
+  if (!match) return text;
+  const year = match[3].length === 2 ? `20${match[3]}` : match[3];
+  return `${year}-${match[2].padStart(2, "0")}-${match[1].padStart(2, "0")}`;
+}
+
+function importedRecordFromRow(row) {
+  const customerName = valueFromRow(row, ["customername", "name", "kunde", "kundenname"]);
+  const serviceType = valueFromRow(row, ["service", "servicetype", "leistung", "leistungstyp"]);
+  if (!customerName || !serviceType) return null;
+  const rawChannel = valueFromRow(row, ["channel", "kanal"]).toLowerCase();
+  const channel = rawChannel.includes("mail") ? "email" : rawChannel.includes("sms") ? "sms" : rawChannel.includes("phone") || rawChannel.includes("telefon") ? "phone" : rawChannel.includes("qr") ? "qr" : "whatsapp";
+  const rawStatus = valueFromRow(row, ["status", "statuskey"]).toLowerCase();
+  const statusKey = rawStatus.includes("review") || rawStatus.includes("bewertung") ? "reviewed" : rawStatus.includes("follow") || rawStatus.includes("nach") ? "follow-up" : rawStatus.includes("wait") || rawStatus.includes("wart") ? "waiting" : rawStatus.includes("not") || rawStatus.includes("nicht") ? "not-satisfied" : "ready";
+  const actionKey = valueFromRow(row, ["nextaction", "action", "naechsterschritt", "nextstep"]).toLowerCase();
+  const normalizedAction = actionKey.includes("remind") || actionKey.includes("nach") ? "reminder" : actionKey.includes("call") || actionKey.includes("anruf") ? "call" : actionKey.includes("mail") ? "email" : defaultActionByStatus[statusKey];
+  const serviceDate = parseImportedDate(valueFromRow(row, ["date", "servicedate", "datum", "leistungsdatum"])) || new Date().toISOString().slice(0, 10);
+  return normalizeRequest({
+    id: crypto.randomUUID(),
+    customerName,
+    serviceType,
+    serviceDate,
+    email: valueFromRow(row, ["email", "emailadresse"]),
+    phone: valueFromRow(row, ["phone", "telefon", "mobil"]),
+    channel,
+    statusKey,
+    actionKey: normalizedAction,
+    satisfied: statusKey !== "not-satisfied",
+    requestSent: ["waiting", "follow-up", "reviewed"].includes(statusKey),
+    followUpSent: statusKey === "waiting",
+    reviewReceived: statusKey === "reviewed",
+    notes: valueFromRow(row, ["notes", "notizen", "bemerkung"]),
+    lastContactAt: serviceDate,
+    createdAt: serviceDate,
+    updatedAt: serviceDate,
+  });
+}
+
+function renderCsvPreview(parsedRows) {
+  const previewRows = parsedRows.slice(0, 5);
+  if (!previewRows.length) {
+    elements.csvPreview.innerHTML = `<h3>${escapeHtml(t("previewTitle"))}</h3><p class="muted">${escapeHtml(t("previewEmpty"))}</p>`;
+    return;
+  }
+  const headers = Object.keys(parsedRows[0]);
+  elements.csvPreview.innerHTML = `<h3>${escapeHtml(t("previewTitle"))}</h3><p class="muted">${headers.length} columns detected</p><div class="table-wrap"><table><thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr></thead><tbody>${previewRows.map((row) => `<tr>${headers.map((header) => `<td>${escapeHtml(row[header])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
 function render() {
   applyStaticTranslations();
   renderChannelOptions();
@@ -1175,8 +1443,10 @@ function render() {
   renderTable();
   renderGeneratedFiles();
   renderTemplates();
+  renderCustomerTable();
   renderReviewSources();
   renderImportedReviews();
+  applyRoute();
   saveRequests();
   saveReviewSources();
 }
@@ -1214,6 +1484,7 @@ function addReviewSource(event) {
       normalizedUrl: detected.normalizedUrl,
       publicDataset: detected.publicDataset,
       connection: detected.connection,
+      externalReference: detected.externalReference,
       status: "needs-server",
       importedCount: 0,
       lastSyncedAt: "",
@@ -1290,7 +1561,7 @@ function deriveStateFromStatus(statusKey, checkedSatisfied) {
     return { satisfied: true, requestSent: true, followUpSent: true, reviewReceived: false };
   }
 
-  return { satisfied: checkedSatisfied, requestSent: checkedSatisfied, followUpSent: false, reviewReceived: false };
+  return { satisfied: checkedSatisfied, requestSent: false, followUpSent: false, reviewReceived: false };
 }
 
 function fallbackStatusBeforeReview(request) {
@@ -1359,6 +1630,8 @@ function toggleReview(id) {
 function exportCsv() {
   const headers = [
     "Customer Name",
+    "Email",
+    "Phone",
     "Service Date",
     "Service Type",
     "Satisfied?",
@@ -1373,6 +1646,8 @@ function exportCsv() {
     headers,
     ...requests.map((request) => [
       request.customerName,
+      request.email,
+      request.phone,
       request.serviceDate,
       request.serviceType,
       request.satisfied ? "Yes" : "No",
@@ -1409,6 +1684,67 @@ function downloadAllFiles() {
   setTimeout(() => {
     elements.downloadStatus.textContent = "";
   }, 2200);
+}
+
+function updateRequestFromTable(event) {
+  const statusSelect = event.target.closest("[data-request-status]");
+  const actionSelect = event.target.closest("[data-request-action]");
+  const requestId = statusSelect?.dataset.requestStatus || actionSelect?.dataset.requestAction;
+  if (!requestId) return;
+
+  requests = requests.map((request) => {
+    if (request.id !== requestId) return request;
+    if (statusSelect) {
+      const previousStatus = request.statusKey;
+      const nextStatus = statusSelect.value;
+      const nextState = deriveStateFromStatus(nextStatus, nextStatus !== "not-satisfied");
+      const shouldSuggest = request.actionKey === defaultActionByStatus[previousStatus] || !request.actionKey;
+      return { ...request, ...nextState, statusKey: nextStatus, actionKey: shouldSuggest ? defaultActionByStatus[nextStatus] : request.actionKey, updatedAt: new Date().toISOString().slice(0, 10) };
+    }
+    return { ...request, actionKey: actionSelect.value, updatedAt: new Date().toISOString().slice(0, 10) };
+  });
+  render();
+}
+
+async function handleCsvFile(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  try {
+    const parsed = parseCsv(await file.text());
+    const importedRecords = parsed.rows.map(importedRecordFromRow).filter(Boolean);
+    pendingCsvImport = importedRecords;
+    pendingCsvSkipped = parsed.rows.length - importedRecords.length;
+    renderCsvPreview(parsed.rows);
+    elements.confirmCsvImport.hidden = !importedRecords.length;
+    elements.csvImportStatus.textContent = `${importedRecords.length} valid records detected${pendingCsvSkipped ? `, ${pendingCsvSkipped} skipped` : ""}.`;
+  } catch {
+    pendingCsvImport = null;
+    pendingCsvSkipped = 0;
+    elements.confirmCsvImport.hidden = true;
+    elements.csvImportStatus.textContent = t("importError");
+  }
+}
+
+function confirmCsvImport() {
+  if (!pendingCsvImport?.length) return;
+  const imported = pendingCsvImport.length;
+  requests = [...pendingCsvImport, ...requests];
+  pendingCsvImport = null;
+  const skipped = pendingCsvSkipped;
+  pendingCsvSkipped = 0;
+  elements.csvFileInput.value = "";
+  elements.confirmCsvImport.hidden = true;
+  elements.csvImportStatus.textContent = t("importSuccess").replace("{imported}", String(imported)).replace("{skipped}", String(skipped));
+  render();
+}
+
+function downloadCsvTemplate() {
+  const content = "customer name;service;date;channel;status;next action;phone;email;notes\nAnna Müller;Apartment cleaning;01.07.2026;WhatsApp;Ready to ask;Send request;+49 151 0000000;anna@example.com;Example row\n";
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([content], { type: "text/csv;charset=utf-8" }));
+  link.download = "sternewerk-crm-import-template.csv";
+  link.click();
+  URL.revokeObjectURL(link.href);
 }
 
 async function copyText(text) {
@@ -1527,12 +1863,27 @@ elements.requestTable.addEventListener("click", (event) => {
     toggleReview(button.dataset.toggleReview);
   }
 });
+elements.requestTable.addEventListener("change", updateRequestFromTable);
 elements.templateGrid.addEventListener("click", (event) => {
   const button = event.target.closest("[data-copy-template]");
 
   if (button) {
     copyTemplate(button.dataset.copyTemplate, button);
   }
+});
+
+elements.customerSearch.addEventListener("input", renderCustomerTable);
+elements.csvFileInput.addEventListener("change", handleCsvFile);
+elements.confirmCsvImport.addEventListener("click", confirmCsvImport);
+elements.downloadCsvTemplate.addEventListener("click", downloadCsvTemplate);
+elements.mobileMenuButton.addEventListener("click", () => {
+  const open = document.body.classList.toggle("sidebar-open");
+  elements.mobileMenuButton.setAttribute("aria-expanded", String(open));
+});
+window.addEventListener("hashchange", () => {
+  document.body.classList.remove("sidebar-open");
+  elements.mobileMenuButton.setAttribute("aria-expanded", "false");
+  render();
 });
 
 render();

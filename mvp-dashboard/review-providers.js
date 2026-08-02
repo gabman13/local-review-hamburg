@@ -49,6 +49,21 @@
     return providerDefinitions.find((provider) => provider.domains.some((domain) => matchesDomain(url.hostname, domain)));
   }
 
+  function extractGoogleReference(url) {
+    const placeId = url.searchParams.get("query_place_id") || url.searchParams.get("place_id");
+    const cid = url.searchParams.get("cid");
+
+    if (placeId) {
+      return { type: "place-id", value: placeId };
+    }
+
+    if (cid) {
+      return { type: "cid", value: cid };
+    }
+
+    return null;
+  }
+
   function detect(input) {
     const url = parseUrl(input);
 
@@ -63,6 +78,8 @@
     }
 
     url.hash = "";
+    const googleReference = provider.id === "google" ? extractGoogleReference(url) : null;
+
     return {
       ok: true,
       provider: provider.id,
@@ -70,6 +87,7 @@
       normalizedUrl: url.toString(),
       publicDataset: provider.publicDataset,
       connection: provider.connection,
+      externalReference: googleReference,
     };
   }
 
