@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Replace "Leo Gabman" and "Local Review Helper" with your name and project name. -->
-    <title>Leo Gabman | Local Review Helper in Hamburg</title>
+    <!-- Replace "Leo Gabman" and "SterneWerk" with your name and project name. -->
+    <title>Leo Gabman | SterneWerk in Hamburg</title>
     <meta
       name="description"
       content="Leo Gabman hilft lokalen Unternehmen in Hamburg, mehr Kundenbewertungen zu sammeln, online sichtbarer zu werden und Vertrauen aufzubauen."
     />
 
-    <meta property="og:title" content="Leo Gabman | Local Review Helper" />
+    <meta property="og:title" content="Leo Gabman | SterneWerk" />
     <meta
       property="og:description"
       content="Hilfe für lokale Unternehmen in Hamburg: bessere Kundenbewertungen, mehr Vertrauen und einfache Bewertungssysteme."
@@ -19,13 +19,17 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://your-username.github.io/your-repository/" />
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=sternewerk-1" />
   </head>
   <body>
     <header class="site-header">
       <nav class="nav" aria-label="Hauptnavigation" data-i18n-attr="aria-label:nav.ariaLabel">
-        <!-- Replace "Leo Gabman" with your own name. -->
-        <a class="brand" href="#home" data-i18n="brand">Leo Gabman</a>
+        <a class="brand" href="#home" aria-label="SterneWerk">
+          <img class="brand-logo" src="assets/sternewerk-logo.png" alt="SterneWerk" />
+        </a>
         <button
           class="nav-toggle"
           type="button"
@@ -52,7 +56,7 @@
     <main>
       <section id="home" class="hero section">
         <div class="hero-content reveal">
-          <p class="eyebrow">Local Review Helper - Hamburg</p>
+          <p class="eyebrow">SterneWerk - Hamburg</p>
           <h1 data-i18n="hero.title">Ich helfe lokalen Unternehmen, mit besseren Kundenbewertungen und mehr Online-Vertrauen zu wachsen.</h1>
           <p class="hero-text" data-i18n="hero.text">Ich helfe kleinen lokalen Unternehmen, mehr positive Bewertungen zu sammeln, ihre Online-Präsenz zu verbessern und bei Kunden mehr Vertrauen aufzubauen.</p>
           <div class="hero-actions">
@@ -61,6 +65,7 @@
           </div>
         </div>
         <aside class="hero-card reveal" aria-label="Projekt-Highlights" data-i18n-attr="aria-label:hero.cardAria">
+          <img class="hero-mark" src="assets/sternewerk-mark.png" alt="" aria-hidden="true" />
           <span class="card-label" data-i18n="hero.cardLabel">Für lokale Dienstleister</span>
           <h2 data-i18n="hero.cardTitle">Einfache Bewertungssysteme, die persönlich wirken und nicht aufdringlich sind.</h2>
           <p data-i18n="hero.cardText">Klare Bewertungslinks, QR-Codes, Kundennachrichten und Nachfassabläufe, mit denen zufriedene Kunden leichter ehrliche Google-Bewertungen hinterlassen.</p>
@@ -82,8 +87,7 @@
       <section id="services" class="section services-section">
         <div class="section-heading centered reveal">
           <p class="eyebrow" data-i18n="services.eyebrow">Projekt & Leistungen</p>
-          <!-- Replace "Local Review Helper" with your project name. -->
-          <h2 data-i18n="services.title">Local Review Helper ist für kleine Unternehmen gemacht, denen Vertrauen wichtig ist.</h2>
+          <h2 data-i18n="services.title">SterneWerk ist für kleine Unternehmen gemacht, denen Vertrauen wichtig ist.</h2>
           <p data-i18n="services.text">Ich baue ein Projekt auf, das lokalen Unternehmen hilft, Kundenbewertungen besser zu sammeln, zu verstehen und für ihre Sichtbarkeit zu nutzen.</p>
         </div>
         <div class="service-grid">
@@ -136,8 +140,8 @@
     </main>
 
     <footer class="footer">
-      <!-- Replace "Leo Gabman" and "Local Review Helper" with your details. -->
-      <p data-i18n="footer">&copy; <span id="year"></span> Leo Gabman - Local Review Helper - Hamburg</p>
+      <!-- Replace "Leo Gabman" and "SterneWerk" with your details. -->
+      <p data-i18n="footer">&copy; <span id="year"></span> Leo Gabman - SterneWerk - Hamburg</p>
     </footer>
 
     <script src="script.js"></script>

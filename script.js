@@ -1,10 +1,10 @@
 const translations = {
   de: {
     meta: {
-      title: "Leo Gabman | Local Review Helper in Hamburg",
+      title: "Leo Gabman | SterneWerk in Hamburg",
       description:
         "Leo Gabman hilft lokalen Unternehmen in Hamburg, mehr Kundenbewertungen zu sammeln, online sichtbarer zu werden und Vertrauen aufzubauen.",
-      ogTitle: "Leo Gabman | Local Review Helper",
+      ogTitle: "Leo Gabman | SterneWerk",
       ogDescription:
         "Hilfe für lokale Unternehmen in Hamburg: bessere Kundenbewertungen, mehr Vertrauen und einfache Bewertungssysteme.",
     },
@@ -44,7 +44,7 @@ const translations = {
     },
     services: {
       eyebrow: "Projekt & Leistungen",
-      title: "Local Review Helper ist für kleine Unternehmen gemacht, denen Vertrauen wichtig ist.",
+      title: "SterneWerk ist für kleine Unternehmen gemacht, denen Vertrauen wichtig ist.",
       text:
         "Ich baue ein Projekt auf, das lokalen Unternehmen hilft, Kundenbewertungen besser zu sammeln, zu verstehen und für ihre Sichtbarkeit zu nutzen.",
       cards: [
@@ -85,14 +85,14 @@ const translations = {
       text:
         "Schreiben Sie mir eine Nachricht und ich melde mich bei Ihnen. Die Links unten sind Platzhalter und können einfach durch Ihre eigenen Telegram-, WhatsApp- und E-Mail-Daten ersetzt werden.",
     },
-    footer: "&copy; {year} Leo Gabman - Local Review Helper - Hamburg",
+    footer: "&copy; {year} Leo Gabman - SterneWerk - Hamburg",
   },
   ru: {
     meta: {
-      title: "Leo Gabman | Local Review Helper в Гамбурге",
+      title: "Leo Gabman | SterneWerk в Гамбурге",
       description:
         "Leo Gabman помогает локальным бизнесам в Гамбурге собирать больше отзывов клиентов, улучшать онлайн-присутствие и укреплять доверие.",
-      ogTitle: "Leo Gabman | Local Review Helper",
+      ogTitle: "Leo Gabman | SterneWerk",
       ogDescription:
         "Помощь локальным бизнесам в Гамбурге: больше отзывов клиентов, больше доверия и простые системы для сбора отзывов.",
     },
@@ -132,7 +132,7 @@ const translations = {
     },
     services: {
       eyebrow: "Проект и услуги",
-      title: "Local Review Helper создан для небольших бизнесов, которым важно доверие.",
+      title: "SterneWerk создан для небольших бизнесов, которым важно доверие.",
       text:
         "Я развиваю проект, который помогает локальным бизнесам лучше собирать, понимать и использовать отзывы клиентов для своей видимости.",
       cards: [
@@ -174,14 +174,14 @@ const translations = {
       text:
         "Напишите мне, и я отвечу. Ссылки ниже пока являются плейсхолдерами, их легко заменить на ваши Telegram, WhatsApp и email.",
     },
-    footer: "&copy; {year} Leo Gabman - Local Review Helper - Hamburg",
+    footer: "&copy; {year} Leo Gabman - SterneWerk - Hamburg",
   },
   en: {
     meta: {
-      title: "Leo Gabman | Local Review Helper in Hamburg",
+      title: "Leo Gabman | SterneWerk in Hamburg",
       description:
         "Leo Gabman helps local businesses in Hamburg collect more customer reviews, improve online trust, and become more visible.",
-      ogTitle: "Leo Gabman | Local Review Helper",
+      ogTitle: "Leo Gabman | SterneWerk",
       ogDescription:
         "Helping Hamburg local businesses grow through better customer reviews, stronger trust, and simple review systems.",
     },
@@ -220,7 +220,7 @@ const translations = {
     },
     services: {
       eyebrow: "Project & services",
-      title: "Local Review Helper is built for small businesses that care about trust.",
+      title: "SterneWerk is built for small businesses that care about trust.",
       text:
         "I am building a project focused on helping local businesses improve how they collect, understand, and use customer reviews.",
       cards: [
@@ -256,7 +256,7 @@ const translations = {
       text:
         "Send me a message and I will get back to you. The links below are placeholders, so you can replace them with your own Telegram, WhatsApp, and email details.",
     },
-    footer: "&copy; {year} Leo Gabman - Local Review Helper - Hamburg",
+    footer: "&copy; {year} Leo Gabman - SterneWerk - Hamburg",
   },
 };
 
