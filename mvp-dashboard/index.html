@@ -3,18 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Local Review Helper - MVP Dashboard</title>
+    <title>SterneWerk - MVP Dashboard</title>
     <meta
       name="description"
       content="A lightweight MVP dashboard for tracking Google review requests, follow-ups, review progress, templates, and generated review system files."
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=sternewerk-1" />
   </head>
   <body>
     <header class="app-header">
-      <div>
-        <p class="eyebrow">Local Review Helper</p>
-        <h1 data-i18n="appTitle">Review Collection Dashboard</h1>
+      <div class="app-brand-heading">
+        <img class="app-logo" src="../assets/sternewerk-logo.png" alt="SterneWerk" />
+        <div>
+          <h1 data-i18n="appTitle">Review Collection Dashboard</h1>
+        </div>
       </div>
       <div class="header-actions">
         <button class="button secondary" type="button" id="exportCsv" data-i18n="exportCsv">Export CSV</button>
@@ -66,6 +71,9 @@
             <div>
               <p class="eyebrow" data-i18n="tracker">Tracker</p>
               <h2 data-i18n="pipelineTitle">Review request pipeline</h2>
+              <p class="muted section-helper" data-i18n="trackerHelper">
+                Keep one clean list of review requests, follow-ups, and confirmed reviews.
+              </p>
             </div>
             <label class="filter-label">
               <span data-i18n="statusLabel">Status</span>
@@ -93,6 +101,11 @@
               </thead>
               <tbody id="requestTable"></tbody>
             </table>
+          </div>
+          <div class="pagination" id="trackerPagination" aria-label="Tracker pagination">
+            <button class="pagination-button" type="button" id="previousPage" data-i18n="previousPage">Previous</button>
+            <span class="pagination-status" id="pageIndicator">Page 1 of 1 · 0 entries</span>
+            <button class="pagination-button" type="button" id="nextPage" data-i18n="nextPage">Next</button>
           </div>
         </article>
 
@@ -203,9 +216,16 @@
     </main>
 
     <footer>
-      <span data-i18n="footerProduct">Local Review Helper MVP</span>
-      <span data-i18n="footerPrivacy">Browser-only demo · Data stays on this device</span>
-      <button class="language-toggle" type="button" id="languageToggle">Sprache: Deutsch</button>
+      <div class="footer-copy">
+        <span data-i18n="footerProduct">SterneWerk MVP</span>
+        <span data-i18n="footerPrivacy">Browser-only demo · Data stays on this device</span>
+      </div>
+      <div class="language-switcher" id="languageSwitcher" aria-label="Language">
+        <span data-i18n="languageLabel">Language</span>
+        <button class="language-option" type="button" data-language="en">English</button>
+        <button class="language-option" type="button" data-language="de">Deutsch</button>
+        <button class="language-option" type="button" data-language="ru">Русский</button>
+      </div>
     </footer>
 
     <script src="app.js"></script>

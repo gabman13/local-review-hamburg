@@ -1,5 +1,6 @@
 const STORAGE_KEY = "local-review-helper-requests";
 const LANGUAGE_KEY = "local-review-helper-language";
+const PAGE_SIZE = 10;
 
 const seedRequests = [
   {
@@ -66,7 +67,7 @@ const seedRequests = [
 
 const translations = {
   en: {
-    metaTitle: "Local Review Helper - MVP Dashboard",
+    metaTitle: "SterneWerk - MVP Dashboard",
     appTitle: "Review Collection Dashboard",
     exportCsv: "Export CSV",
     resetDemo: "Reset demo",
@@ -84,6 +85,7 @@ const translations = {
     needsAttention: "Needs attention",
     tracker: "Tracker",
     pipelineTitle: "Review request pipeline",
+    trackerHelper: "Keep one clean list of review requests, follow-ups, and confirmed reviews.",
     statusLabel: "Status",
     filterAll: "All",
     filterReviewed: "Review received",
@@ -125,10 +127,13 @@ const translations = {
     readyMessagesText: "Simple messages for WhatsApp, email, SMS, follow-ups, and staff handover.",
     copyMessage: "Copy message",
     copied: "Copied",
-    footerProduct: "Local Review Helper MVP",
+    footerProduct: "SterneWerk MVP",
     footerPrivacy: "Browser-only demo · Data stays on this device",
-    languageToggle: "Sprache: Deutsch",
-    noRows: "No requests match this filter yet.",
+    languageLabel: "Language",
+    previousPage: "Previous",
+    nextPage: "Next",
+    pageIndicator: "Page {current} of {total} · {count} entries",
+    noRows: "No matching entries yet. Try another status or log the next customer.",
     today: "Today",
     undo: "Undo",
     markReview: "Mark review",
@@ -245,7 +250,7 @@ const translations = {
     },
   },
   de: {
-    metaTitle: "Local Review Helper - MVP-Dashboard",
+    metaTitle: "SterneWerk - MVP-Dashboard",
     appTitle: "Dashboard für Bewertungsanfragen",
     exportCsv: "CSV exportieren",
     resetDemo: "Demo zurücksetzen",
@@ -263,6 +268,7 @@ const translations = {
     needsAttention: "Braucht Aufmerksamkeit",
     tracker: "Tracker",
     pipelineTitle: "Pipeline für Bewertungsanfragen",
+    trackerHelper: "Eine klare Liste für Bewertungsanfragen, Nachfassen und bestätigte Bewertungen.",
     statusLabel: "Status",
     filterAll: "Alle",
     filterReviewed: "Bewertung erhalten",
@@ -304,10 +310,13 @@ const translations = {
     readyMessagesText: "Einfache Texte für WhatsApp, E-Mail, SMS, Nachfassen und interne Übergabe.",
     copyMessage: "Nachricht kopieren",
     copied: "Kopiert",
-    footerProduct: "Local Review Helper MVP",
+    footerProduct: "SterneWerk MVP",
     footerPrivacy: "Browser-Demo · Daten bleiben auf diesem Gerät",
-    languageToggle: "Language: English",
-    noRows: "Keine Anfragen passen zu diesem Filter.",
+    languageLabel: "Sprache",
+    previousPage: "Zurück",
+    nextPage: "Weiter",
+    pageIndicator: "Seite {current} von {total} · {count} Einträge",
+    noRows: "Noch keine passenden Einträge. Wählen Sie einen anderen Status oder tragen Sie den nächsten Kunden ein.",
     today: "Heute",
     undo: "Rückgängig",
     markReview: "Bewertung markieren",
@@ -423,6 +432,189 @@ const translations = {
       },
     },
   },
+  ru: {
+    metaTitle: "SterneWerk - MVP-панель",
+    appTitle: "Панель сбора отзывов",
+    exportCsv: "Экспорт CSV",
+    resetDemo: "Сбросить демо",
+    demoBusiness: "Демо-компания",
+    businessMeta: "Гамбург-Эймсбюттель · Клининговая компания · Рейтинг Google 4,7",
+    directReviewLink: "Прямая ссылка на отзыв в Google",
+    metricsAria: "Показатели системы отзывов",
+    totalRequests: "Всего запросов",
+    customersAsked: "Клиентов попросили",
+    reviewsReceived: "Отзывы получены",
+    confirmedReviews: "Подтвержденные новые отзывы",
+    conversionRate: "Конверсия",
+    requestsToReviews: "Из запросов в отзывы",
+    followUpsDue: "Нужно напомнить",
+    needsAttention: "Требует внимания",
+    tracker: "Трекер",
+    pipelineTitle: "Воронка запросов отзывов",
+    trackerHelper: "Один понятный список для запросов, напоминаний и полученных отзывов.",
+    statusLabel: "Статус",
+    filterAll: "Все",
+    filterReviewed: "Отзыв получен",
+    filterFollowUp: "Нужно напомнить",
+    filterWaiting: "Ожидание",
+    filterNotSatisfied: "Клиент недоволен",
+    tableCustomer: "Клиент",
+    tableService: "Услуга",
+    tableChannel: "Канал",
+    tableStatus: "Статус",
+    tableNextAction: "Следующий шаг",
+    addRequest: "Добавить запрос",
+    logCustomer: "Записать клиента",
+    customerName: "Имя клиента",
+    customerPlaceholder: "например, Frau Meyer",
+    serviceType: "Услуга",
+    servicePlaceholder: "например, мойка окон",
+    requestChannel: "Канал запроса",
+    initialStatus: "Начальный статус",
+    nextAction: "Следующий шаг",
+    customerSatisfied: "Клиент доволен",
+    reviewReceivedCheck: "Отзыв получен",
+    notes: "Заметки",
+    notesPlaceholder: "Что важно помнить команде",
+    addToTracker: "Добавить в трекер",
+    generatedFilesEyebrow: "Готовые файлы",
+    generatedFilesTitle: "Готовые файлы",
+    generatedFilesText: "Пять PDF-файлов готовы для системы сбора отзывов.",
+    downloadAll: "Скачать все PDF",
+    download: "Скачать",
+    downloadStarted: "Загрузка началась.",
+    competitorGap: "Разрыв с конкурентами",
+    whyMatters: "Почему это важно",
+    reviewsLabel: "отзывов",
+    gapInsight:
+      "У сильнейшего ближайшего конкурента на 186 отзывов Google больше. Эта система помогает команде постепенно сокращать разрыв, регулярно спрашивая реальных довольных клиентов.",
+    templatesEyebrow: "Шаблоны",
+    readyMessages: "Готовые сообщения",
+    readyMessagesText: "Простые тексты для WhatsApp, email, SMS, напоминаний и передачи команде.",
+    copyMessage: "Скопировать",
+    copied: "Скопировано",
+    footerProduct: "SterneWerk MVP",
+    footerPrivacy: "Демо в браузере · Данные остаются на этом устройстве",
+    languageLabel: "Язык",
+    previousPage: "Назад",
+    nextPage: "Вперед",
+    pageIndicator: "Страница {current} из {total} · записей: {count}",
+    noRows: "Под этот фильтр пока нет записей. Выберите другой статус или добавьте следующего клиента.",
+    today: "Сегодня",
+    undo: "Отменить",
+    markReview: "Отметить отзыв",
+    channels: {
+      whatsapp: "WhatsApp",
+      email: "Email",
+      qr: "QR-карта",
+      phone: "Телефон",
+      none: "Нет",
+    },
+    statusSelect: {
+      ready: "Готово к запросу",
+      "follow-up": "Нужно напомнить",
+      waiting: "Ожидание",
+      reviewed: "Отзыв получен",
+      "not-satisfied": "Клиент недоволен",
+    },
+    actions: {
+      send: "Отправить запрос",
+      reminder: "Отправить напоминание",
+      check: "Проверить на следующей неделе",
+      reply: "Ответить на отзыв",
+      resolve: "Сначала решить проблему",
+    },
+    statuses: {
+      notSatisfied: { label: "Пока не спрашивать", action: "Сначала решить проблему" },
+      reviewed: { label: "Отзыв получен", action: "Ответить на отзыв" },
+      followUp: { label: "Нужно напомнить", action: "Отправить напоминание" },
+      waiting: { label: "Ожидание", action: "Проверить на следующей неделе" },
+      ready: { label: "Готово к запросу", action: "Отправить запрос" },
+    },
+    files: {
+      categories: {
+        core: "Основные файлы",
+        support: "Дополнительные файлы",
+        all: "Все файлы",
+      },
+      audit: {
+        title: "Аудит отзывов Google",
+        description: "Разрыв по отзывам, сравнение с конкурентами и рекомендуемый план на 30 дней.",
+      },
+      card: {
+        title: "QR-/NFC-карта для отзыва",
+        description: "Печатная карточка, которую можно дать довольному клиенту после работы.",
+      },
+      staff: {
+        title: "Инструкция для сотрудников",
+        description: "Простой порядок, как вежливо просить реальных клиентов об честных отзывах.",
+      },
+      report: {
+        title: "Ежемесячный отчет по отзывам",
+        description: "Короткая сводка: запросы, новые отзывы, конверсия и следующий шаг.",
+      },
+      responses: {
+        title: "Шаблоны ответов на отзывы",
+        description: "Готовые ответы для позитивных, нейтральных и критических отзывов Google.",
+      },
+    },
+    templates: {
+      categories: {
+        whatsapp: "WhatsApp",
+        email: "Email",
+        other: "Другое",
+        all: "Все",
+      },
+      whatsappShort: {
+        title: "Короткое сообщение WhatsApp",
+        channel: "WhatsApp",
+        body:
+          "Здравствуйте, [Name]! Спасибо за доверие. Если Вы остались довольны нашей работой, будем очень благодарны за честный отзыв в Google:\n\nhttps://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review\n\nБольшое спасибо!",
+      },
+      whatsappFriendly: {
+        title: "Дружелюбное сообщение WhatsApp",
+        channel: "WhatsApp",
+        body:
+          "Здравствуйте, [Name]! Спасибо, что выбрали AlsterGlanz Reinigung. Если Вы остались довольны нашей работой, нам будет очень приятно получить честный отзыв в Google:\n\nhttps://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review\n\nВаш отзыв помогает другим клиентам в Гамбурге найти надежного исполнителя. Спасибо за поддержку!",
+      },
+      whatsappFollowup: {
+        title: "Напоминание WhatsApp",
+        channel: "WhatsApp",
+        body:
+          "Здравствуйте, [Name]! Хотели коротко напомнить: если у Вас есть одна минута и Вы остались довольны нашей работой, будем очень благодарны за честный отзыв в Google:\n\nhttps://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review\n\nКонечно, только если все было хорошо. Спасибо!",
+      },
+      emailShort: {
+        title: "Короткий email",
+        channel: "Email",
+        body:
+          "Тема: Короткая просьба об отзыве\n\nЗдравствуйте, [Name]!\n\nСпасибо, что выбрали AlsterGlanz Reinigung. Если Вы остались довольны нашей услугой, будем очень благодарны за честный отзыв в Google:\n\nhttps://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review\n\nСпасибо!",
+      },
+      emailProfessional: {
+        title: "Профессиональный email",
+        channel: "Email",
+        body:
+          "Тема: Спасибо за доверие\n\nЗдравствуйте, [Name]!\n\nЕще раз спасибо, что выбрали AlsterGlanz Reinigung. Если Вы остались довольны нашей работой, мы будем благодарны за честный отзыв в Google. Ваш отзыв помогает другим местным клиентам найти компанию, которой можно доверять.\n\nОставить отзыв можно здесь:\nhttps://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review\n\nС уважением,\nAlsterGlanz Reinigung",
+      },
+      emailFollowup: {
+        title: "Email-напоминание",
+        channel: "Email",
+        body:
+          "Тема: Небольшое напоминание\n\nЗдравствуйте, [Name]!\n\nХотели один раз вежливо напомнить. Если Вы остались довольны нашей услугой и у Вас есть минутка, будем очень благодарны за честный отзыв в Google:\n\nhttps://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review\n\nСпасибо, что поддерживаете местный бизнес.",
+      },
+      smsShort: {
+        title: "Короткое SMS",
+        channel: "SMS",
+        body:
+          "Здравствуйте, [Name]! Спасибо, что выбрали AlsterGlanz Reinigung. Если Вы довольны нашей работой, оставьте, пожалуйста, честный отзыв в Google: https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review",
+      },
+      staffInstruction: {
+        title: "Внутренняя инструкция для команды",
+        channel: "Внутреннее",
+        body:
+          "Когда клиент подтверждает, что доволен работой, вежливо попросите его оставить честный отзыв в Google. Используйте QR-карту или подготовленный текст для WhatsApp/email. Не давите на клиента, не предлагайте вознаграждение и никогда не просите фейковые отзывы.",
+      },
+    },
+  },
 };
 
 const fileAssets = [
@@ -518,16 +710,24 @@ const elements = {
   channelSelect: document.querySelector("#channelSelect"),
   statusSelect: document.querySelector("#statusSelect"),
   actionSelect: document.querySelector("#actionSelect"),
-  languageToggle: document.querySelector("#languageToggle"),
+  previousPage: document.querySelector("#previousPage"),
+  nextPage: document.querySelector("#nextPage"),
+  pageIndicator: document.querySelector("#pageIndicator"),
+  languageSwitcher: document.querySelector("#languageSwitcher"),
 };
 
 let requests = loadRequests();
 let language = localStorage.getItem(LANGUAGE_KEY) || "en";
+if (!translations[language]) {
+  language = "en";
+}
 let activeFileCategory = "core";
 let activeTemplateCategory = "whatsapp";
+let currentPage = 1;
 
 function t(key) {
-  return key.split(".").reduce((value, part) => (value ? value[part] : undefined), translations[language]) || key;
+  const dictionary = translations[language] || translations.en;
+  return key.split(".").reduce((value, part) => (value ? value[part] : undefined), dictionary) || key;
 }
 
 function loadRequests() {
@@ -558,6 +758,8 @@ function normalizeRequest(request) {
     channel: channelMap[request.channel] || request.channel || "whatsapp",
     statusKey: request.statusKey || inferStatusKey(request),
     actionKey: request.actionKey || defaultActionByStatus[request.statusKey || inferStatusKey(request)] || "send",
+    previousStatusKey: request.previousStatusKey || "",
+    previousActionKey: request.previousActionKey || "",
   };
 }
 
@@ -630,7 +832,11 @@ function applyStaticTranslations() {
     element.textContent = `${element.dataset.count} ${t("reviewsLabel")}`;
   });
 
-  elements.languageToggle.textContent = t("languageToggle");
+  elements.languageSwitcher.querySelectorAll("[data-language]").forEach((button) => {
+    const isActive = button.dataset.language === language;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 function renderChannelOptions() {
@@ -674,8 +880,12 @@ function renderTable() {
     const status = getStatus(request);
     return filter === "all" || status.key === filter;
   });
+  const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+  const pageStart = (currentPage - 1) * PAGE_SIZE;
+  const visibleRows = rows.slice(pageStart, pageStart + PAGE_SIZE);
 
-  elements.requestTable.innerHTML = rows
+  elements.requestTable.innerHTML = visibleRows
     .map((request) => {
       const status = getStatus(request);
 
@@ -701,6 +911,13 @@ function renderTable() {
       </tr>
     `;
   }
+
+  elements.previousPage.disabled = currentPage <= 1;
+  elements.nextPage.disabled = currentPage >= totalPages;
+  elements.pageIndicator.textContent = t("pageIndicator")
+    .replace("{current}", String(currentPage))
+    .replace("{total}", String(totalPages))
+    .replace("{count}", String(rows.length));
 }
 
 function renderGeneratedFiles() {
@@ -811,6 +1028,7 @@ function addRequest(event) {
 
   elements.requestForm.reset();
   elements.requestForm.satisfied.checked = true;
+  currentPage = 1;
   render();
 }
 
@@ -834,6 +1052,22 @@ function deriveStateFromStatus(statusKey, checkedSatisfied) {
   return { satisfied: checkedSatisfied, requestSent: checkedSatisfied, followUpSent: false, reviewReceived: false };
 }
 
+function fallbackStatusBeforeReview(request) {
+  if (!request.satisfied) {
+    return "not-satisfied";
+  }
+
+  if (request.followUpSent) {
+    return "waiting";
+  }
+
+  if (request.requestSent) {
+    return "follow-up";
+  }
+
+  return "ready";
+}
+
 function toggleReview(id) {
   requests = requests.map((request) => {
     if (request.id !== id) {
@@ -841,12 +1075,40 @@ function toggleReview(id) {
     }
 
     const nextValue = !request.reviewReceived;
+    const currentStatusKey = request.statusKey || inferStatusKey(request);
+    const currentActionKey = request.actionKey || defaultActionByStatus[currentStatusKey] || "send";
+
+    if (!nextValue) {
+      const restoredStatusKey =
+        request.previousStatusKey && request.previousStatusKey !== "reviewed"
+          ? request.previousStatusKey
+          : fallbackStatusBeforeReview({ ...request, reviewReceived: false });
+      const restoredActionKey =
+        request.previousActionKey || defaultActionByStatus[restoredStatusKey] || currentActionKey || "check";
+      const restoredState = deriveStateFromStatus(restoredStatusKey, request.satisfied);
+
+      return {
+        ...request,
+        ...restoredState,
+        reviewReceived: false,
+        statusKey: restoredStatusKey,
+        actionKey: restoredActionKey,
+        reviewDate: "",
+        previousStatusKey: "",
+        previousActionKey: "",
+      };
+    }
+
     return {
       ...request,
-      reviewReceived: nextValue,
-      statusKey: nextValue ? "reviewed" : "waiting",
-      actionKey: nextValue ? "reply" : "check",
-      reviewDate: nextValue ? new Date().toISOString().slice(0, 10) : "",
+      satisfied: true,
+      requestSent: true,
+      reviewReceived: true,
+      statusKey: "reviewed",
+      actionKey: "reply",
+      reviewDate: new Date().toISOString().slice(0, 10),
+      previousStatusKey: currentStatusKey === "reviewed" ? "" : currentStatusKey,
+      previousActionKey: currentStatusKey === "reviewed" ? "" : currentActionKey,
     };
   });
 
@@ -934,8 +1196,8 @@ async function copyTemplate(id, button) {
   }, 1200);
 }
 
-function toggleLanguage() {
-  language = language === "en" ? "de" : "en";
+function setLanguage(nextLanguage) {
+  language = translations[nextLanguage] ? nextLanguage : "en";
   localStorage.setItem(LANGUAGE_KEY, language);
   render();
 }
@@ -954,14 +1216,32 @@ function csvCell(value) {
 }
 
 elements.requestForm.addEventListener("submit", addRequest);
-elements.statusFilter.addEventListener("change", renderTable);
+elements.statusFilter.addEventListener("change", () => {
+  currentPage = 1;
+  renderTable();
+});
 elements.resetDemo.addEventListener("click", () => {
   requests = [...seedRequests];
+  currentPage = 1;
   render();
 });
 elements.exportCsv.addEventListener("click", exportCsv);
 elements.downloadAll.addEventListener("click", downloadAllFiles);
-elements.languageToggle.addEventListener("click", toggleLanguage);
+elements.previousPage.addEventListener("click", () => {
+  currentPage = Math.max(1, currentPage - 1);
+  renderTable();
+});
+elements.nextPage.addEventListener("click", () => {
+  currentPage += 1;
+  renderTable();
+});
+elements.languageSwitcher.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-language]");
+
+  if (button) {
+    setLanguage(button.dataset.language);
+  }
+});
 elements.fileCategoryButtons.addEventListener("click", (event) => {
   const button = event.target.closest("[data-file-category]");
 

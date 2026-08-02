@@ -1,4 +1,4 @@
-# Local Review Helper MVP Dashboard
+# SterneWerk MVP Dashboard
 
 This is a browser-only demo dashboard for the review collection system.
 
