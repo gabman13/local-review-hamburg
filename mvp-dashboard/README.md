@@ -13,6 +13,19 @@ It runs with plain HTML, CSS, and vanilla JavaScript. There is no backend, accou
 - Message templates
 - CSV export
 - Browser-local storage
+- Review-source URL detection for Google Maps, Trustpilot, TripAdvisor, Yelp, and Facebook
+- Clear server-connection requirements and partial-dataset warnings
+
+## Review Imports
+
+The review-source screen is intentionally an integration-ready interface, not a scraper. This GitHub Pages demo has no secure backend, so it cannot call provider APIs or store credentials.
+
+- Google Maps URLs can be stored as a potential **partial** Places API source.
+- Full Google review history requires a verified business owner to connect Google Business Profile through OAuth.
+- Trustpilot, TripAdvisor, and Yelp require server-side credentials or partner access.
+- Facebook review import is detected but not supported in this MVP.
+
+See [`../review-integration-feasibility.md`](../review-integration-feasibility.md) for the provider matrix, recommended database model, and backend implementation order. `.env.example` contains server-side variable names only; never publish real credentials in this static app.
 
 ## How To Open
 

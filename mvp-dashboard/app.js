@@ -1,5 +1,6 @@
 const STORAGE_KEY = "local-review-helper-requests";
 const LANGUAGE_KEY = "local-review-helper-language";
+const REVIEW_SOURCES_STORAGE_KEY = "sternewerk-review-sources";
 const PAGE_SIZE = 10;
 
 const seedRequests = [
@@ -137,6 +138,40 @@ const translations = {
     today: "Today",
     undo: "Undo",
     markReview: "Mark review",
+    sources: {
+      eyebrow: "Review sources",
+      title: "Connect review platforms",
+      helper: "Paste a business profile URL. SterneWerk detects the platform and shows what a secure server connection can import.",
+      urlLabel: "Business profile URL",
+      urlPlaceholder: "https://maps.google.com/...",
+      add: "Add review source",
+      invalidUrl: "Enter a complete public profile URL.",
+      unsupported: "This review platform is not supported yet.",
+      added: "{provider} was added. A server connection is still needed before the first sync.",
+      status: "Setup required",
+      lastSync: "Last sync: not synced yet",
+      imported: "{count} reviews imported",
+      sync: "Sync now",
+      remove: "Remove",
+      syncBlocked: "This static demo cannot sync reviews. Add the provider credentials to a server first.",
+      partial: "This provider may only return a partial review sample.",
+      complete: "The completeness of this source is not confirmed until the server connection is configured.",
+    },
+    reviews: {
+      eyebrow: "Imported reviews",
+      title: "All customer reviews",
+      helper: "Reviews appear here once a server-side provider connection has completed its first sync.",
+      filterLabel: "Source",
+      allSources: "All sources",
+      empty: "No reviews have been imported yet. Add a review source, then connect its server-side provider to begin a real sync.",
+    },
+    providers: {
+      google: { name: "Google Maps", note: "Public Places data is limited; full review access needs the verified business owner to connect Google Business Profile." },
+      trustpilot: { name: "Trustpilot", note: "Requires Trustpilot Business API access and a server-side API key." },
+      tripadvisor: { name: "TripAdvisor", note: "Partner API access is required and returned review content is limited." },
+      yelp: { name: "Yelp", note: "Fusion API access is required; Yelp returns only a small set of review excerpts." },
+      facebook: { name: "Facebook", note: "Public Facebook recommendations are not supported for automatic import in this MVP." },
+    },
     channels: {
       whatsapp: "WhatsApp",
       email: "Email",
@@ -320,6 +355,40 @@ const translations = {
     today: "Heute",
     undo: "Rückgängig",
     markReview: "Bewertung markieren",
+    sources: {
+      eyebrow: "Bewertungsquellen",
+      title: "Bewertungsplattformen verbinden",
+      helper: "Fügen Sie die URL eines Unternehmensprofils ein. SterneWerk erkennt die Plattform und zeigt, was eine sichere Server-Verbindung importieren kann.",
+      urlLabel: "URL des Unternehmensprofils",
+      urlPlaceholder: "https://maps.google.com/...",
+      add: "Bewertungsquelle hinzufügen",
+      invalidUrl: "Geben Sie eine vollständige öffentliche Profil-URL ein.",
+      unsupported: "Diese Bewertungsplattform wird noch nicht unterstützt.",
+      added: "{provider} wurde hinzugefügt. Vor der ersten Synchronisierung ist noch eine Server-Verbindung nötig.",
+      status: "Einrichtung erforderlich",
+      lastSync: "Letzte Synchronisierung: noch nicht synchronisiert",
+      imported: "{count} Bewertungen importiert",
+      sync: "Jetzt synchronisieren",
+      remove: "Entfernen",
+      syncBlocked: "Diese statische Demo kann keine Bewertungen synchronisieren. Richten Sie zuerst die Anbieter-Zugangsdaten auf einem Server ein.",
+      partial: "Dieser Anbieter liefert möglicherweise nur eine begrenzte Bewertungsstichprobe.",
+      complete: "Die Vollständigkeit ist erst nach Einrichtung der Server-Verbindung bestätigt.",
+    },
+    reviews: {
+      eyebrow: "Importierte Bewertungen",
+      title: "Alle Kundenbewertungen",
+      helper: "Bewertungen erscheinen hier, sobald eine serverseitige Anbieter-Verbindung die erste Synchronisierung abgeschlossen hat.",
+      filterLabel: "Quelle",
+      allSources: "Alle Quellen",
+      empty: "Noch wurden keine Bewertungen importiert. Fügen Sie eine Quelle hinzu und verbinden Sie den Anbieter auf dem Server, um eine echte Synchronisierung zu starten.",
+    },
+    providers: {
+      google: { name: "Google Maps", note: "Öffentliche Places-Daten sind begrenzt; für vollständigen Zugriff muss der verifizierte Inhaber Google Business Profile verbinden." },
+      trustpilot: { name: "Trustpilot", note: "Erfordert Zugang zur Trustpilot Business API und einen serverseitigen API-Schlüssel." },
+      tripadvisor: { name: "TripAdvisor", note: "Partner-API-Zugang ist erforderlich; der zurückgegebene Bewertungsinhalt ist begrenzt." },
+      yelp: { name: "Yelp", note: "Fusion-API-Zugang ist erforderlich; Yelp liefert nur wenige Bewertungsauszüge." },
+      facebook: { name: "Facebook", note: "Öffentliche Facebook-Empfehlungen werden in diesem MVP nicht automatisch importiert." },
+    },
     channels: {
       whatsapp: "WhatsApp",
       email: "E-Mail",
@@ -503,6 +572,40 @@ const translations = {
     today: "Сегодня",
     undo: "Отменить",
     markReview: "Отметить отзыв",
+    sources: {
+      eyebrow: "Источники отзывов",
+      title: "Подключите платформы с отзывами",
+      helper: "Вставьте URL профиля компании. SterneWerk определит платформу и покажет, что можно импортировать через безопасное серверное подключение.",
+      urlLabel: "URL профиля компании",
+      urlPlaceholder: "https://maps.google.com/...",
+      add: "Добавить источник отзывов",
+      invalidUrl: "Введите полный публичный URL профиля.",
+      unsupported: "Эта платформа с отзывами пока не поддерживается.",
+      added: "{provider} добавлен. Перед первой синхронизацией нужно настроить серверное подключение.",
+      status: "Требуется настройка",
+      lastSync: "Последняя синхронизация: еще не выполнялась",
+      imported: "Импортировано отзывов: {count}",
+      sync: "Синхронизировать",
+      remove: "Удалить",
+      syncBlocked: "Эта статическая демоверсия не может синхронизировать отзывы. Сначала добавьте учетные данные провайдера на сервере.",
+      partial: "Этот провайдер может возвращать только ограниченную выборку отзывов.",
+      complete: "Полнота данных будет подтверждена после настройки серверного подключения.",
+    },
+    reviews: {
+      eyebrow: "Импортированные отзывы",
+      title: "Все отзывы клиентов",
+      helper: "Отзывы появятся здесь после первой синхронизации через серверное подключение к провайдеру.",
+      filterLabel: "Источник",
+      allSources: "Все источники",
+      empty: "Пока отзывы не импортированы. Добавьте источник, затем настройте провайдера на сервере, чтобы запустить настоящую синхронизацию.",
+    },
+    providers: {
+      google: { name: "Google Maps", note: "Публичные данные Places ограничены; для полного доступа подтвержденный владелец должен подключить Google Business Profile." },
+      trustpilot: { name: "Trustpilot", note: "Нужен доступ к Trustpilot Business API и серверный API-ключ." },
+      tripadvisor: { name: "TripAdvisor", note: "Нужен доступ к партнерскому API; возвращаемый объем отзывов ограничен." },
+      yelp: { name: "Yelp", note: "Нужен доступ к Fusion API; Yelp возвращает только небольшое число фрагментов отзывов." },
+      facebook: { name: "Facebook", note: "Публичные рекомендации Facebook в этом MVP автоматически не импортируются." },
+    },
     channels: {
       whatsapp: "WhatsApp",
       email: "Email",
@@ -714,9 +817,16 @@ const elements = {
   nextPage: document.querySelector("#nextPage"),
   pageIndicator: document.querySelector("#pageIndicator"),
   languageSwitcher: document.querySelector("#languageSwitcher"),
+  reviewSourceForm: document.querySelector("#reviewSourceForm"),
+  reviewSourceUrl: document.querySelector("#reviewSourceUrl"),
+  reviewSourceMessage: document.querySelector("#reviewSourceMessage"),
+  reviewSources: document.querySelector("#reviewSources"),
+  reviewSourceFilter: document.querySelector("#reviewSourceFilter"),
+  importedReviews: document.querySelector("#importedReviews"),
 };
 
 let requests = loadRequests();
+let reviewSources = loadReviewSources();
 let language = localStorage.getItem(LANGUAGE_KEY) || "en";
 if (!translations[language]) {
   language = "en";
@@ -724,6 +834,7 @@ if (!translations[language]) {
 let activeFileCategory = "core";
 let activeTemplateCategory = "whatsapp";
 let currentPage = 1;
+let reviewSourceMessage = "";
 
 function t(key) {
   const dictionary = translations[language] || translations.en;
@@ -781,6 +892,73 @@ function inferStatusKey(request) {
 
 function saveRequests() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+}
+
+function loadReviewSources() {
+  const saved = localStorage.getItem(REVIEW_SOURCES_STORAGE_KEY);
+
+  if (!saved) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(saved).filter((source) => source && source.id && source.provider && source.normalizedUrl);
+  } catch {
+    return [];
+  }
+}
+
+function saveReviewSources() {
+  localStorage.setItem(REVIEW_SOURCES_STORAGE_KEY, JSON.stringify(reviewSources));
+}
+
+function sourceProviderCopy(source) {
+  return t(`providers.${source.provider}`);
+}
+
+function renderReviewSources() {
+  elements.reviewSourceMessage.textContent = reviewSourceMessage;
+  elements.reviewSourceFilter.innerHTML = [
+    `<option value="all">${t("reviews.allSources")}</option>`,
+    ...reviewSources.map((source) => `<option value="${source.id}">${escapeHtml(sourceProviderCopy(source).name)}</option>`),
+  ].join("");
+
+  if (!reviewSources.length) {
+    elements.reviewSources.innerHTML = "";
+    return;
+  }
+
+  elements.reviewSources.innerHTML = reviewSources
+    .map((source) => {
+      const provider = sourceProviderCopy(source);
+      const availability = source.publicDataset === "partial" ? t("sources.partial") : t("sources.complete");
+
+      return `
+        <article class="source-card">
+          <div class="source-card-heading">
+            <div>
+              <span class="source-provider">${escapeHtml(provider.name)}</span>
+              <strong>${t("sources.status")}</strong>
+            </div>
+            <a href="${escapeHtml(source.normalizedUrl)}" target="_blank" rel="noreferrer">${t("sources.urlLabel")}</a>
+          </div>
+          <p>${escapeHtml(provider.note)}</p>
+          <p class="source-availability">${escapeHtml(availability)}</p>
+          <div class="source-card-footer">
+            <span>${t("sources.lastSync")} · ${t("sources.imported").replace("{count}", String(source.importedCount || 0))}</span>
+            <div class="source-actions">
+              <button class="row-action" type="button" data-sync-source="${source.id}">${t("sources.sync")}</button>
+              <button class="row-action source-remove" type="button" data-remove-source="${source.id}">${t("sources.remove")}</button>
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderImportedReviews() {
+  elements.importedReviews.innerHTML = `<p class="empty-reviews">${t("reviews.empty")}</p>`;
 }
 
 function getStatus(request) {
@@ -997,7 +1175,70 @@ function render() {
   renderTable();
   renderGeneratedFiles();
   renderTemplates();
+  renderReviewSources();
+  renderImportedReviews();
   saveRequests();
+  saveReviewSources();
+}
+
+function addReviewSource(event) {
+  event.preventDefault();
+  const detected = window.ReviewProviders.detect(elements.reviewSourceUrl.value);
+
+  if (!detected.ok) {
+    reviewSourceMessage = t(detected.reason === "invalid-url" ? "sources.invalidUrl" : "sources.unsupported");
+    renderReviewSources();
+    return;
+  }
+
+  if (detected.connection === "not-supported") {
+    reviewSourceMessage = t("sources.unsupported");
+    renderReviewSources();
+    return;
+  }
+
+  const existing = reviewSources.find((source) => source.normalizedUrl === detected.normalizedUrl);
+  const provider = t(`providers.${detected.provider}`);
+
+  if (existing) {
+    reviewSourceMessage = t("sources.added").replace("{provider}", provider.name);
+    renderReviewSources();
+    return;
+  }
+
+  reviewSources = [
+    {
+      id: crypto.randomUUID(),
+      provider: detected.provider,
+      originalUrl: detected.originalUrl,
+      normalizedUrl: detected.normalizedUrl,
+      publicDataset: detected.publicDataset,
+      connection: detected.connection,
+      status: "needs-server",
+      importedCount: 0,
+      lastSyncedAt: "",
+    },
+    ...reviewSources,
+  ];
+  reviewSourceMessage = t("sources.added").replace("{provider}", provider.name);
+  elements.reviewSourceForm.reset();
+  render();
+}
+
+function handleReviewSourceAction(event) {
+  const syncButton = event.target.closest("[data-sync-source]");
+  const removeButton = event.target.closest("[data-remove-source]");
+
+  if (syncButton) {
+    reviewSourceMessage = t("sources.syncBlocked");
+    renderReviewSources();
+  }
+
+  if (removeButton) {
+    reviewSources = reviewSources.filter((source) => source.id !== removeButton.dataset.removeSource);
+    reviewSourceMessage = "";
+    render();
+  }
 }
 
 function addRequest(event) {
@@ -1216,6 +1457,8 @@ function csvCell(value) {
 }
 
 elements.requestForm.addEventListener("submit", addRequest);
+elements.reviewSourceForm.addEventListener("submit", addReviewSource);
+elements.reviewSources.addEventListener("click", handleReviewSourceAction);
 elements.statusFilter.addEventListener("change", () => {
   currentPage = 1;
   renderTable();

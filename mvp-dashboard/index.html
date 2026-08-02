@@ -42,6 +42,49 @@
         </div>
       </section>
 
+      <section class="dashboard-grid integrations-grid">
+        <article class="panel sources-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow" data-i18n="sources.eyebrow">Review sources</p>
+              <h2 data-i18n="sources.title">Connect review platforms</h2>
+              <p class="muted section-helper" data-i18n="sources.helper">
+                Paste a business profile URL. SterneWerk detects the platform and shows what a secure server connection can import.
+              </p>
+            </div>
+          </div>
+          <form class="source-form" id="reviewSourceForm">
+            <label>
+              <span data-i18n="sources.urlLabel">Business profile URL</span>
+              <input
+                type="url"
+                id="reviewSourceUrl"
+                name="reviewSourceUrl"
+                placeholder="https://maps.google.com/..."
+                data-i18n-attr="placeholder:sources.urlPlaceholder"
+                required
+              />
+            </label>
+            <button class="button primary compact-primary" type="submit" data-i18n="sources.add">Add review source</button>
+          </form>
+          <p class="source-message" id="reviewSourceMessage" aria-live="polite"></p>
+          <div class="sources-list" id="reviewSources"></div>
+        </article>
+
+        <aside class="panel imported-reviews-panel">
+          <p class="eyebrow" data-i18n="reviews.eyebrow">Imported reviews</p>
+          <h2 data-i18n="reviews.title">All customer reviews</h2>
+          <p class="muted section-helper" data-i18n="reviews.helper">
+            Reviews appear here once a server-side provider connection has completed its first sync.
+          </p>
+          <label class="filter-label review-filter-label">
+            <span data-i18n="reviews.filterLabel">Source</span>
+            <select id="reviewSourceFilter"></select>
+          </label>
+          <div class="reviews-list" id="importedReviews"></div>
+        </aside>
+      </section>
+
       <section class="kpi-grid" aria-label="Review system metrics" data-i18n-attr="aria-label:metricsAria">
         <article class="kpi-card">
           <span data-i18n="totalRequests">Total requests</span>
@@ -228,6 +271,7 @@
       </div>
     </footer>
 
+    <script src="review-providers.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
